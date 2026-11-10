@@ -464,128 +464,121 @@ html { scroll-behavior: smooth; }
   }
 }
 
-/* =========================================================== the board == */
-.board-wrap { margin-top: var(--sc-9); }
-.board {
-  --stage-n: 7;
-  --st-done: #1E6B4E;     --st-done-bg: #DCEADF;
-  --st-active: #8A4A0C;   --st-active-bg: #F6E6CC;  --st-active-mark: #C46A12;
-  --st-ready: #1E6B4E;
-  --st-early: #4A5750;
-  display: grid; gap: var(--sc-6) var(--sc-8);
-  border-top: 1px solid var(--sc-hairline-strong);
-  padding-top: var(--sc-6);
+@media (prefers-reduced-motion: reduce) {
+  .js .photo img { transition: none; }
 }
-@media (min-width: 1000px) {
-  .board { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); grid-template-rows: auto auto 1fr; align-items: start; }
-  .board__head, .board__tools { grid-column: 1 / -1; }
-  .board__stages, .board__rows { grid-column: 1; }
-  .board__stages { grid-row: 2; }
-  .board__rows { grid-row: 3; }
-  .board__panels { grid-column: 2; grid-row: 2 / span 2; position: sticky; top: var(--sc-6); }
-}
-.board__head { display: grid; gap: var(--sc-2); }
-.board__title { margin: 0; font-family: var(--sc-font-display); font-weight: 400; font-size: var(--sc-t-xl); letter-spacing: -0.02em; }
-.board__summary { margin: 0; color: var(--sc-ink-soft); max-width: 60ch; }
 
-.board__stages {
-  list-style: none; margin: 0 0 calc(-1 * var(--sc-4)); padding: 0 var(--sc-4);
-  display: grid; grid-template-columns: repeat(var(--stage-n), 1fr);
-  font-size: var(--sc-t-xs); color: var(--sc-ink-soft); letter-spacing: 0.01em;
+/* ============================================================ the wins ==
+   A pinned sequence: one large figure that rolls between values, the story
+   crossfading beside it, and a hairline marker gliding down the titles.
+   Everything moves on transform and opacity only. */
+.now-intro { padding-bottom: var(--sc-6); }
+.wins-stage { display: flex; align-items: center; }
+.wins {
+  display: grid; gap: var(--sc-5) var(--sc-9);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "label" "figure" "stories" "nav";
 }
-.board__stages li { padding-left: 2px; border-left: 1px solid var(--sc-hairline-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-.board__rows { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sc-2); }
-.board__btn {
-  width: 100%; text-align: left; cursor: pointer;
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--sc-3) var(--sc-4); align-items: center;
-  padding: var(--sc-4);
-  background: transparent; border: 1px solid transparent; border-radius: var(--r-panel);
-  color: var(--sc-ink);
-  transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 120ms var(--ease-out);
-}
-.board__btn:hover { background: color-mix(in oklab, var(--sc-surface) 70%, transparent); }
-.board__btn:active { transform: translateY(1px); }
-.board__btn[aria-selected="true"] { background: #FBFAF6; border-color: var(--sc-hairline-strong); box-shadow: var(--sc-e1); }
-.board__btn:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
-.board__name { font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; }
-
-.status {
-  justify-self: end; white-space: nowrap;
-  font-size: var(--sc-t-xs); font-weight: 500; letter-spacing: 0.01em;
-  padding: 0.2rem 0.55rem; border-radius: var(--r-control);
-  border: 1px solid currentColor;
-}
-.status--done   { color: var(--st-done); background: var(--st-done-bg); border-color: transparent; }
-.status--active { color: var(--st-active); background: var(--st-active-bg); border-color: transparent; }
-.status--ready  { color: var(--st-ready); }
-.status--early  { color: var(--st-early); border-color: var(--sc-hairline-strong); }
-
-/* Track: seven equal stages, hairline ticks, a fill for completed stages and a
-   marker on the stage in progress. Fill grows with transform only. */
-.board__track {
-  grid-column: 1 / -1; position: relative; height: 8px;
-  background:
-    repeating-linear-gradient(90deg, transparent 0 calc(100% / var(--stage-n) - 1px), var(--sc-canvas) calc(100% / var(--stage-n) - 1px) calc(100% / var(--stage-n))),
-    color-mix(in oklab, var(--sc-ink) 9%, transparent);
-  border-radius: var(--r-control);
-  overflow: visible;
-}
-.board__fill {
-  position: absolute; inset: 0; border-radius: var(--r-control);
-  background: var(--st-done);
-  transform-origin: left center;
-  transform: scaleX(calc(var(--done) / var(--stage-n)));
-}
-.board__now {
-  position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%;
-  left: calc((var(--cur) - 0.5) / var(--stage-n) * 100%);
-  translate: -50% -50%;
-  background: var(--sc-canvas); border: 3px solid var(--st-active-mark);
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.18);
-}
-/* Grow on entry, row by row. Without JS the board renders already grown. */
-.js .board .board__fill { transform: scaleX(0); transition: transform 1100ms var(--ease-out); transition-delay: calc(var(--d, 0) * 90ms + 80ms); }
-.js .board .board__now { opacity: 0; scale: 0.6; transition: opacity 300ms var(--ease-out), scale 300ms var(--ease-out); transition-delay: calc(var(--d, 0) * 90ms + 860ms); }
-.js .board .is-grown .board__fill { transform: scaleX(calc(var(--done) / var(--stage-n))); }
-.js .board .is-grown .board__now { opacity: 1; scale: 1; }
-
-/* Panel: the story behind the selected row. */
-.board__panels { min-width: 0; }
-.board__panel {
-  background: #FBFAF6; border: 1px solid var(--sc-hairline-strong); border-radius: var(--r-panel);
-  padding: var(--sc-6); box-shadow: var(--sc-e2);
-}
-.board__panel + .board__panel { margin-top: var(--sc-5); }
-.js .board__panel[hidden] { display: none; }
-.js .board__panel.is-entering { animation: panel-in 320ms var(--ease-out); }
-@keyframes panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.board__panel:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
-.board__kicker { margin: 0; font-size: var(--sc-t-xs); color: var(--sc-ink-soft); letter-spacing: 0.01em; }
-.board__panel h4 { margin: var(--sc-2) 0 var(--sc-4); font-family: var(--sc-font-display); font-weight: 400; font-size: var(--sc-t-xl); letter-spacing: -0.02em; line-height: 1.15; }
-.board__panel p:not(.board__kicker):not(.board__outcome) { margin: 0 0 var(--sc-4); color: var(--sc-ink-soft); }
-.board__figs { margin: var(--sc-5) 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: var(--sc-4); }
-.board__figs > div { border-top: 1px solid var(--sc-hairline-strong); padding-top: var(--sc-2); }
-.board__figs dt { font-size: var(--sc-t-xs); color: var(--sc-ink-soft); line-height: 1.4; }
-.board__figs dd { margin: var(--sc-1) 0 0; font-family: var(--sc-font-display); font-size: var(--sc-t-xl); letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums lining-nums; }
-.board__outcome { margin: var(--sc-5) 0 0; font-family: var(--sc-font-display); font-style: italic; font-size: var(--sc-t-lg); }
-.board__tools { margin: 0; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); line-height: 1.7; }
-.board__tools span { font-weight: 600; font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide); text-transform: uppercase; color: var(--sc-ink); margin-right: var(--sc-3); }
-
-@media (max-width: 999px) {
-  .board__stages { display: none; }
-  .board__rows::before {
-    content: "Discovery → Requirements → Approval → Build → UAT → Go-live → Retire";
-    font-size: var(--sc-t-xs); color: var(--sc-ink-soft); padding: 0 var(--sc-4) var(--sc-2);
+@media (min-width: 900px) {
+  .wins {
+    grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 0.65fr);
+    grid-template-areas: "label label" "figure nav" "stories nav";
+    align-items: end;
   }
-  .board__panel { padding: var(--sc-5); }
 }
-@media (max-width: 480px) {
-  .board__btn { grid-template-columns: 1fr; }
-  .status { justify-self: start; }
+.wins__label {
+  grid-area: label; margin: 0;
+  font-size: var(--sc-t-sm); font-weight: 500; letter-spacing: var(--sc-track-wide); text-transform: uppercase;
+  color: var(--sc-ink-soft);
+}
+
+/* The figure: a 1em-tall window; values slide through it. */
+.wins__figure {
+  grid-area: figure; position: relative; overflow: clip;
+  height: 1em; line-height: 1;
+  font-family: var(--sc-font-display); font-weight: 400;
+  font-size: clamp(4.2rem, 2rem + 11vw, 11.5rem);
+  letter-spacing: -0.055em;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--sc-ink);
+}
+.wins__num {
+  position: absolute; left: 0; bottom: 0; white-space: nowrap;
+  transition: transform 640ms var(--ease-out), opacity 420ms var(--ease-out);
+}
+.wins__num.is-below { transform: translateY(70%); opacity: 0; transition: none; }
+.wins__num.is-above { transform: translateY(-70%); opacity: 0; }
+
+/* Stories share one grid cell so the tallest sets the height: no layout jump. */
+.wins__stories { grid-area: stories; display: grid; }
+.win { grid-area: 1 / 1; max-width: 46ch; }
+.win__unit { margin: 0 0 var(--sc-3); font-family: var(--sc-font-display); font-style: italic; font-size: var(--sc-t-xl); letter-spacing: -0.015em; line-height: 1.2; color: var(--sc-accent); }
+.win__text { margin: 0; color: var(--sc-ink-soft); }
+.js .win { opacity: 0; transform: translateY(10px); transition: opacity 420ms var(--ease-out), transform 520ms var(--ease-out); pointer-events: none; }
+.js .win.is-active { opacity: 1; transform: none; pointer-events: auto; transition-delay: 90ms; }
+/* Without JS: every win reads in order, and the rolling figure is not needed. */
+html:not(.js) .wins__figure, html:not(.js) .wins__nav { display: none; }
+html:not(.js) .wins__stories { gap: var(--sc-6); }
+html:not(.js) .wins-act { height: auto !important; }
+
+/* Titles with a gliding hairline marker. */
+.wins__nav { grid-area: nav; position: relative; padding-left: var(--sc-4); border-left: 1px solid var(--sc-hairline-strong); }
+.wins__nav ol { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sc-1); }
+.wins__marker {
+  position: absolute; left: -1px; top: 0; width: 2px; height: 2.75rem;
+  background: var(--sc-accent); border-radius: 2px;
+  transform: translateY(var(--y, 0px));
+  transition: transform 520ms var(--ease-out);
+}
+.wins__nav button {
+  display: flex; align-items: center; width: 100%; min-height: 2.75rem;
+  padding: 0 var(--sc-2); text-align: left; cursor: pointer;
+  background: none; border: 0; border-radius: var(--r-control);
+  font: inherit; font-size: var(--sc-t-base); color: var(--sc-ink-soft);
+  transition: color 160ms var(--ease-out), transform 120ms var(--ease-out);
+}
+.wins__nav button:hover { color: var(--sc-ink); }
+.wins__nav button:active { transform: translateX(2px); }
+.wins__nav button[aria-current="true"] { color: var(--sc-ink); font-weight: 500; }
+.wins__nav button:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
+
+@media (max-width: 899px) {
+  .wins { gap: var(--sc-4); }
+  .wins__nav button { min-height: 2.5rem; font-size: var(--sc-t-sm); }
+  .wins__marker { height: 2.5rem; }
+  .win__unit { font-size: var(--sc-t-lg); }
+}
+@media (max-width: 1099px) {
+  .wins-stage { padding-top: 4rem; box-sizing: border-box; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .js .board .board__fill, .js .board .board__now { transition: none; }
-  .js .board__panel.is-entering { animation: none; }
-  .js .photo img { transition: none; }
+  .wins__num, .js .win, .wins__marker { transition: none !important; }
+  .js .win { transform: none; }
+}
+
+/* ===================================================== floating nav pill ==
+   Httpster-style: on phones the folio floats as a blurred pill off the edges. */
+@media (max-width: 1099px) {
+  .folio {
+    left: 10px; right: 10px; top: 10px;
+    padding: 0.55rem 0.6rem 0.55rem 1rem;
+    border: 1px solid var(--sc-hairline-strong);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--sc-canvas) 78%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: var(--sc-e2);
+  }
+  .folio.is-dark { background: color-mix(in oklab, var(--dark-canvas) 80%, transparent); border-color: rgb(237 235 227 / 0.16); }
+  .folio__cta {
+    padding: 0.35rem 0.8rem; border-radius: 999px; text-decoration: none !important;
+    background: var(--sc-accent); color: var(--sc-accent-ink) !important;
+  }
+  .folio.is-dark .folio__cta { background: var(--dark-accent); color: var(--dark-canvas) !important; }
+  main { padding-top: 0; }
+  .title-page { padding-top: 6rem; }
+}
+@media (max-width: 1099px) {
+  .folio__cta:hover { color: var(--sc-accent-ink) !important; opacity: 0.9; }
+  .folio__cta:active { transform: scale(0.97); }
 }

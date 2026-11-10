@@ -102,78 +102,80 @@
   }
 
 
-  /* ------------------------------------------------------ delivery board --
-     ARIA tabs (vertical): click or arrow keys select a project; Home/End jump.
-     Rows grow to their real stage once the board scrolls into view. */
-  function initBoard() {
-    var board = document.querySelector('[data-board]');
-    if (!board) return;
-    var tabs = Array.prototype.slice.call(board.querySelectorAll('[role="tab"]'));
-    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
-    if (panels.some(function (p) { return !p; })) {
-      console.error('delivery board: a tab points at a missing panel');
+  /* ------------------------------------------------------------ the wins --
+     Pinned act. Scroll position picks the active win; the figure rolls to its
+     value, the story crossfades, the marker glides. Titles jump to their win. */
+  function initWins() {
+    var root = document.querySelector('[data-wins]');
+    if (!root) return;
+    var act = root.closest('[data-sc-act]');
+    var stories = Array.prototype.slice.call(root.querySelectorAll('.win'));
+    var buttons = Array.prototype.slice.call(root.querySelectorAll('[data-win]'));
+    var marker = root.querySelector('.wins__marker');
+    var fig = root.querySelector('.wins__figure');
+    if (!act || !fig || !marker || stories.length !== buttons.length) {
+      console.error('wins: markup is incomplete');
       return;
     }
-    var narrow = window.matchMedia('(max-width: 999px)');
+    var n = stories.length, current = -1, queued = false;
 
-    function select(i, focus, fromUser) {
-      tabs.forEach(function (t, k) {
-        var on = k === i;
-        t.setAttribute('aria-selected', String(on));
-        t.tabIndex = on ? 0 : -1;
-        panels[k].hidden = !on;
-        panels[k].classList.toggle('is-entering', on && fromUser);
-      });
-      if (focus) tabs[i].focus();
-      if (fromUser && narrow.matches) {
-        panels[i].scrollIntoView({ block: 'nearest', behavior: reducedMotion() ? 'auto' : 'smooth' });
+    function progress() {
+      var r = act.getBoundingClientRect();
+      var travel = Math.max(r.height - window.innerHeight, 1);
+      return clamp(-r.top / travel, 0, 1);
+    }
+    function indexFor(p) { return clamp(Math.floor(((p - 0.04) / 0.92) * n), 0, n - 1); }
+
+    function roll(value) {
+      var old = fig.querySelector('.wins__num:not(.is-above)');
+      if (old && old.textContent === value) return;
+      var next = document.createElement('span');
+      next.className = 'wins__num is-below';
+      next.textContent = value;
+      fig.appendChild(next);
+      if (old) {
+        old.classList.add('is-above');
+        setTimeout(function () { if (old.parentNode) old.parentNode.removeChild(old); }, 700);
       }
+      // Force a style flush so the start position is committed, then let it travel.
+      void next.offsetWidth;
+      next.classList.remove('is-below');
     }
 
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { select(i, false, true); });
-      t.addEventListener('keydown', function (e) {
-        var n = tabs.length, j = null;
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') j = (i + 1) % n;
-        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') j = (i - 1 + n) % n;
-        else if (e.key === 'Home') j = 0;
-        else if (e.key === 'End') j = n - 1;
-        if (j === null) return;
-        e.preventDefault();
-        select(j, true, true);
+    function activate(i) {
+      if (i === current) return;
+      current = i;
+      stories.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
+      buttons.forEach(function (b, k) { if (k === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+      var li = buttons[i].parentNode;
+      marker.style.setProperty('--y', li.offsetTop + 'px');
+      roll(stories[i].getAttribute('data-fig'));
+    }
+
+    function update() { queued = false; activate(indexFor(progress())); }
+    function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+
+    buttons.forEach(function (b, i) {
+      b.addEventListener('click', function () {
+        var r = act.getBoundingClientRect();
+        var travel = Math.max(r.height - window.innerHeight, 1);
+        var target = window.scrollY + r.top + travel * (0.04 + 0.92 * (i + 0.5) / n);
+        activate(i);
+        window.scrollTo({ top: target, behavior: reducedMotion() ? 'auto' : 'smooth' });
       });
     });
-    select(0, false, false);
 
-    // Each row grows when it scrolls into view; rows arriving together stagger.
-    var rows = Array.prototype.slice.call(board.querySelectorAll('.board__row'));
-    if (!('IntersectionObserver' in window)) {
-      rows.forEach(function (r) { r.classList.add('is-grown'); });
-      return;
-    }
-    var io = new IntersectionObserver(function (entries) {
-      var batch = entries.filter(function (e) { return e.isIntersecting; });
-      batch.forEach(function (e, k) {
-        e.target.style.setProperty('--d', k);
-        e.target.classList.add('is-grown');
-        io.unobserve(e.target);
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
-    rows.forEach(function (r) { io.observe(r); });
+    // Start from the first value without animating it in.
+    var first = fig.querySelector('.wins__num');
+    if (first) first.textContent = stories[0].getAttribute('data-fig');
+    current = -1;
+    stories.forEach(function (s, k) { s.classList.toggle('is-active', k === 0); });
+    buttons[0].setAttribute('aria-current', 'true');
+    current = 0;
 
-    // Backup for browsers that deliver observer callbacks late: a cheap scroll
-    // check grows any row already on screen. Removes itself once all have grown.
-    function sweep() {
-      var vh = window.innerHeight, left = 0;
-      rows.forEach(function (r) {
-        if (r.classList.contains('is-grown')) return;
-        var top = r.getBoundingClientRect().top;
-        if (top < vh * 0.88 && top > -r.offsetHeight) { r.classList.add('is-grown'); io.unobserve(r); }
-        else left++;
-      });
-      if (!left) window.removeEventListener('scroll', sweep);
-    }
-    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    update();
   }
 
   function reducedMotion() {
@@ -224,7 +226,7 @@
   try {
     initFolio();
     initFolioProgress();
-    initBoard();
+    initWins();
     initPhotos();
     initRuler();
     drawGrid();

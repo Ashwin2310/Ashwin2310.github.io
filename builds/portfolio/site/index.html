@@ -67,177 +67,77 @@
     </div>
   </header>
 
-  <!-- I · NOW: Honda Canada. The delivery board shows every project on one lifecycle. -->
-  <section id="now" class="chapter sc-section" data-chapter="now" data-sc-act="flow">
-    <div class="sc-wrap spread spread--portrait">
-      <p class="intertitle"><span>I</span> Now</p>
-      <figure class="portrait">
-        <div class="photo photo--portrait">
-          <img data-sc-parallax="-0.05" src="photos/portrait-1000.jpg"
-               srcset="photos/portrait-600.jpg 600w, photos/portrait-1000.jpg 1000w"
-               sizes="(min-width: 900px) 17rem, 90vw"
-               width="1000" height="1333" loading="lazy" decoding="async"
-               alt="Ashwin leaning on the railing of the Brooklyn Bridge at dusk, a stone tower behind him.">
+  <!-- I · NOW: Honda Canada. Intro spread, then four main wins in a pinned sequence. -->
+  <div id="now" data-chapter="now">
+    <section class="chapter sc-section now-intro" data-sc-act="flow">
+      <div class="sc-wrap spread spread--portrait">
+        <p class="intertitle"><span>I</span> Now</p>
+        <figure class="portrait">
+          <div class="photo photo--portrait">
+            <img data-sc-parallax="-0.05" src="photos/portrait-1000.jpg"
+                 srcset="photos/portrait-600.jpg 600w, photos/portrait-1000.jpg 1000w"
+                 sizes="(min-width: 900px) 17rem, 90vw"
+                 width="1000" height="1333" loading="lazy" decoding="async"
+                 alt="Ashwin leaning on the railing of the Brooklyn Bridge at dusk, a stone tower behind him.">
+          </div>
+          <figcaption>Brooklyn Bridge, New York.</figcaption>
+        </figure>
+        <div class="spread__main sc-stack" data-sc-in data-sc-stagger="60">
+          <h2 class="sc-display sc-display--lg">I take projects from the first workshop to the final switch-off.</h2>
+          <p class="sc-lede">Since June 2026 I've been the AI Product Owner in Information Technology at Honda Canada, owning delivery across the contact-centre modernization program and our AI initiatives.</p>
         </div>
-        <figcaption>Brooklyn Bridge, New York.</figcaption>
-      </figure>
-      <div class="spread__main sc-stack" data-sc-in data-sc-stagger="60">
-        <h2 class="sc-display sc-display--lg">I take Honda Canada's projects from the first workshop to the final switch-off.</h2>
-        <p class="sc-lede">Since June 2026 I've been the AI Product Owner in Information Technology at Honda Canada. I own delivery across the contact-centre modernization program and our AI initiatives.</p>
-        <p class="sc-body">That means taking work from discovery and requirements through approvals, UAT, go-live and decommissioning. I work across business owners, developers, support teams and external vendors, and I run a monthly program update for more than 20 business and IT leaders.</p>
+        <aside class="spread__margin" aria-label="At a glance">
+          <dl class="facts">
+            <div><dt>Leaders in my monthly program update</dt><dd>20+</dd></div>
+            <div><dt>Role since</dt><dd>June 2026</dd></div>
+          </dl>
+        </aside>
       </div>
-      <aside class="spread__margin" aria-label="At a glance">
-        <dl class="facts">
-          <div><dt>Projects I own, on the board below</dt><dd>7</dd></div>
-          <div><dt>Leaders in my monthly program update</dt><dd>20+</dd></div>
-          <div><dt>Role since</dt><dd>June 2026</dd></div>
-        </dl>
-      </aside>
-    </div>
+    </section>
 
-    <!-- The delivery board. Every row is a real project placed at its real stage. -->
-    <div class="sc-wrap board-wrap">
-      <div class="board" data-board>
-        <div class="board__head">
-          <h3 class="board__title">The delivery board</h3>
-          <p class="board__summary">One delivered and retired on schedule. One adopted. Two in delivery. One with requirements signed off. Two in discovery.</p>
+    <!-- The wins: a pinned sequence. Scroll steps through four wins; the figure rolls,
+         the story crossfades, a hairline marker glides down the list. Titles are buttons. -->
+    <section class="wins-act" data-sc-act="pin" data-sc-span="3.4" aria-labelledby="wins-title">
+      <div data-sc-stage class="wins-stage">
+        <div class="sc-wrap wins" data-wins>
+          <h3 id="wins-title" class="wins__label">Main wins at Honda Canada</h3>
+
+          <div class="wins__figure" aria-hidden="true">
+            <span class="wins__num" data-wins-num>754</span>
+          </div>
+
+          <div class="wins__stories">
+            <article class="win" id="win-1" data-fig="754" data-unit="test cases, every one passed">
+              <p class="win__unit"><span class="sr-only">754 </span>test cases, every one passed</p>
+              <p class="win__text">I led UAT and the Go/No-Go for Honda's move of its core contact centres to Salesforce Lightning. It went live on October 5, 2026, and the old Classic system was retired on schedule 17 days later.</p>
+            </article>
+            <article class="win" id="win-2" data-fig="83" data-unit="user stories from 19 legacy call flows">
+              <p class="win__unit"><span class="sr-only">83 </span>user stories from 19 legacy call flows</p>
+              <p class="win__text">For the telephony move to NICE CXone, I turned every call flow into plain-language stories with bilingual acceptance criteria, so business reviewers could sign off in one pass on a single 59-story pack.</p>
+            </article>
+            <article class="win" id="win-3" data-fig="52%" data-unit="lower annual cost projection">
+              <p class="win__unit"><span class="sr-only">52% </span>lower annual cost projection</p>
+              <p class="win__text">While building cost models for platform enhancements, I caught a pricing error that had roughly doubled one feature's estimate. With accurate figures, leadership approved all three features into the annual budget.</p>
+            </article>
+            <article class="win" id="win-4" data-fig="Adopted" data-unit="as the team's way to write requirements">
+              <p class="win__unit"><span class="sr-only">Adopted </span>as the team's way to write requirements</p>
+              <p class="win__text">I built a repeatable method for generating UI mockups straight from user stories with Microsoft 365 Copilot. After a demo to the product team, it became part of how we produce requirements.</p>
+            </article>
+          </div>
+
+          <nav class="wins__nav" aria-label="Choose a win">
+            <span class="wins__marker" aria-hidden="true"></span>
+            <ol>
+              <li><button type="button" data-win="0" aria-controls="win-1">Salesforce Lightning, live</button></li>
+              <li><button type="button" data-win="1" aria-controls="win-2">Telephony requirements, signed off</button></li>
+              <li><button type="button" data-win="2" aria-controls="win-3">A budget, corrected</button></li>
+              <li><button type="button" data-win="3" aria-controls="win-4">AI-assisted requirements</button></li>
+            </ol>
+          </nav>
         </div>
-
-        <ol class="board__stages" aria-hidden="true">
-          <li>Discovery</li><li title="Requirements">Reqs</li><li>Approval</li><li>Build</li><li>UAT</li><li>Go-live</li><li>Retire</li>
-        </ol>
-
-        <ul class="board__rows" role="tablist" aria-label="Honda Canada projects" aria-orientation="vertical">
-          <li class="board__row" style="--done:7; --cur:0" data-state="done">
-            <button class="board__btn" role="tab" id="tab-sf" aria-controls="panel-sf" aria-selected="true" tabindex="0">
-              <span class="board__name">Salesforce Classic to Lightning</span>
-              <span class="status status--done">Delivered</span>
-              <span class="board__track" aria-hidden="true"><span class="board__fill"></span></span>
-            </button>
-          </li>
-          <li class="board__row" style="--done:2; --cur:0" data-state="paused">
-            <button class="board__btn" role="tab" id="tab-cx" aria-controls="panel-cx" aria-selected="false" tabindex="-1">
-              <span class="board__name">Telephony move to NICE CXone</span>
-              <span class="status status--ready">Requirements complete</span>
-              <span class="board__track" aria-hidden="true"><span class="board__fill"></span></span>
-            </button>
-          </li>
-          <li class="board__row" style="--done:3; --cur:4" data-state="active">
-            <button class="board__btn" role="tab" id="tab-pe" aria-controls="panel-pe" aria-selected="false" tabindex="-1">
-              <span class="board__name">Contact-centre platform enhancements</span>
-              <span class="status status--active">In implementation</span>
-              <span class="board__track" aria-hidden="true"><span class="board__fill"></span><span class="board__now"></span></span>
-            </button>
-          </li>
-          <li class="board__row" style="--done:4; --cur:5" data-state="active">
-            <button class="board__btn" role="tab" id="tab-ap" aria-controls="panel-ap" aria-selected="false" tabindex="-1">
-              <span class="board__name">Finance workflow enhancements (AP approvals)</span>
-              <span class="status status--active">UAT in progress</span>
-              <span class="board__track" aria-hidden="true"><span class="board__fill"></span><span class="board__now"></span></span>
-            </button>
-          </li>
-          <li class="board__row" style="--done:6; --cur:0" data-state="done">
-            <button class="board__btn" role="tab" id="tab-co" aria-controls="panel-co" aria-selected="false" tabindex="-1">
-              <span class="board__name">AI-assisted requirements with Copilot</span>
-              <span class="status status--done">Adopted by team</span>
-              <span class="board__track" aria-hidden="true"><span class="board__fill"></span></span>
-            </button>
-          </li>
-          <li class="board__row" style="--done:0; --cur:1" data-state="active">
-            <button class="board__btn" role="tab" id="tab-vt" aria-controls="panel-vt" aria-selected="false" tabindex="-1">
-              <span class="board__name">Vendor transition discovery</span>
-              <span class="status status--early">In discovery</span>
-              <span class="board__track" aria-hidden="true"><span class="board__fill"></span><span class="board__now"></span></span>
-            </button>
-          </li>
-          <li class="board__row" style="--done:0; --cur:1" data-state="active">
-            <button class="board__btn" role="tab" id="tab-ai" aria-controls="panel-ai" aria-selected="false" tabindex="-1">
-              <span class="board__name">AI lease-retention proof of concept</span>
-              <span class="status status--early">In discovery</span>
-              <span class="board__track" aria-hidden="true"><span class="board__fill"></span><span class="board__now"></span></span>
-            </button>
-          </li>
-        </ul>
-
-        <div class="board__panels">
-          <article class="board__panel" role="tabpanel" id="panel-sf" aria-labelledby="tab-sf" tabindex="0">
-            <p class="board__kicker">Delivered · UAT leadership, release governance, change management</p>
-            <h4>Salesforce Classic to Lightning</h4>
-            <p>Honda's first move of its core contact centres to Salesforce Lightning in 2024 was rolled back, partly because the virtual desktop platform couldn't handle the load. I took the remaining tiers through to go-live.</p>
-            <p>I ran UAT end to end with internal and vendor testers, built the testing guides and an Excel and Power Query status workbook, and presented the Go/No-Go case to leadership. I drove readiness through vendor-led training, a five-minute rollback plan, smoke testing and a two-week post-launch support window.</p>
-            <dl class="board__figs">
-              <div><dt>Test cases executed</dt><dd>754</dd></div>
-              <div><dt>Pass rate, every defect closed</dt><dd>100%</dd></div>
-              <div><dt>Went live</dt><dd>Oct 5, 2026</dd></div>
-              <div><dt>Days until Classic was retired, on schedule</dt><dd>17</dd></div>
-            </dl>
-            <p class="board__outcome">This closed a gap that had been open since 2024.</p>
-          </article>
-
-          <article class="board__panel" role="tabpanel" id="panel-cx" aria-labelledby="tab-cx" tabindex="0">
-            <p class="board__kicker">Requirements complete · requirements engineering, bilingual acceptance criteria</p>
-            <h4>Telephony move to NICE CXone</h4>
-            <p>Our contact centres are moving from a legacy Cisco and Verint stack to NICE CXone. I turned the legacy call flows and the current workforce-management setup into plain-language user stories with bilingual acceptance criteria and worked scenarios, so business reviewers could approve them without knowing anything about telephony.</p>
-            <p>A technical reference traced every legacy routing element back to a story, and open questions were logged rather than quietly redesigned. I then consolidated three packs into one sign-off pack so reviewers could approve in parallel, in one pass.</p>
-            <dl class="board__figs">
-              <div><dt>Legacy call flows translated</dt><dd>19</dd></div>
-              <div><dt>User stories written</dt><dd>83</dd></div>
-              <div><dt>Stories in the single sign-off pack</dt><dd>59</dd></div>
-            </dl>
-          </article>
-
-          <article class="board__panel" role="tabpanel" id="panel-pe" aria-labelledby="tab-pe" tabindex="0">
-            <p class="board__kicker">Approved and in implementation · cost analysis, business cases</p>
-            <h4>Contact-centre platform enhancements</h4>
-            <p>After one business unit moved to NICE CXone, I took over a backlog of open issues and feature requests and turned it into a single decision brief that separated cost decisions from in-flight fixes.</p>
-            <p>While building volume-based cost models, I caught a pricing error that had roughly doubled the annual estimate for one feature. Correcting it to the contracted rate brought the projection down by about 52%.</p>
-            <dl class="board__figs">
-              <div><dt>Lower annual projection after the fix</dt><dd>~52%</dd></div>
-              <div><dt>Features approved into the annual budget</dt><dd>3 of 3</dd></div>
-            </dl>
-          </article>
-
-          <article class="board__panel" role="tabpanel" id="panel-ap" aria-labelledby="tab-ap" tabindex="0">
-            <p class="board__kicker">UAT in progress · requirements, edge cases, audit-ready testing</p>
-            <h4>Finance workflow enhancements (AP approvals)</h4>
-            <p>I gathered requirements for automated approval reminders, fiscal-year archiving with long-term purging, and approver delegation in Honda's AP invoice tool. I wrote the user stories with mockups and secured formal business and developer sign-off.</p>
-            <p>I also designed test data that simulates multi-day reminder intervals, so time-based scenarios could be tested the same day instead of waiting days for them.</p>
-            <dl class="board__figs">
-              <div><dt>Enhancements specified and signed off</dt><dd>3</dd></div>
-              <div><dt>Wait to test a multi-day reminder</dt><dd>Same day</dd></div>
-            </dl>
-          </article>
-
-          <article class="board__panel" role="tabpanel" id="panel-co" aria-labelledby="tab-co" tabindex="0">
-            <p class="board__kicker">Adopted by team · AI enablement</p>
-            <h4>AI-assisted requirements with Copilot</h4>
-            <p>I developed a repeatable method for generating UI mockups directly from user stories using Microsoft 365 Copilot and documented it in a one-page guide.</p>
-            <p>My manager asked me to demo it to the product team, and it's now part of how we produce requirements.</p>
-          </article>
-
-          <article class="board__panel" role="tabpanel" id="panel-vt" aria-labelledby="tab-vt" tabindex="0">
-            <p class="board__kicker">In progress · workshop facilitation, vendor governance</p>
-            <h4>Vendor transition discovery</h4>
-            <p>Alongside the telephony migration, front-line operations are moving to a new outsourcing partner. I set up the project's governance and objectives, including agentic-AI and multi-year savings goals.</p>
-            <p>I designed a four-workshop discovery plan covering scope, handoffs, recordings and compliance, access and MFA, and stabilization. I facilitated the first workshop and sent notes the same day.</p>
-            <dl class="board__figs">
-              <div><dt>Discovery workshops planned</dt><dd>4</dd></div>
-              <div><dt>Actions from workshop one, each with an owner and due date</dt><dd>16</dd></div>
-            </dl>
-          </article>
-
-          <article class="board__panel" role="tabpanel" id="panel-ai" aria-labelledby="tab-ai" tabindex="0">
-            <p class="board__kicker">Discovery · AI use-case framing, data and attribution</p>
-            <h4>AI lease-retention proof of concept</h4>
-            <p>Honda Financial Services wants to use AI to find the lease customers most likely to respond to retention offers. I wrote the team alignment brief: a feasibility-first approach, Legal guardrails, and segmentation by lease maturity to stay clear of dynamic pricing.</p>
-            <p>I identified the gaps that had sunk an earlier modelling attempt (an undefined success metric, no campaign attribution, and no historical baseline), then designed an end-to-end walkthrough workshop with Finance, Sales and CRM.</p>
-          </article>
-        </div>
-
-        <p class="board__tools"><span>Tools</span> Salesforce Lightning, NICE CXone, Azure Virtual Desktop, Jira and Zephyr, Confluence, Excel and Power Query, Microsoft 365 Copilot, ServiceNow, Lucid, DocuSign</p>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <!-- II · PROOF: hard cut to the dark ground. The peak. -->
   <div id="proof" class="ground-dark" data-chapter="proof">
