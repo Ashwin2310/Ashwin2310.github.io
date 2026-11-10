@@ -1,0 +1,59 @@
+/* Small interactions: label-swap buttons with an arrow chip, a footer
+   button row, and photos that come into colour under the pointer.
+   Transform and opacity only, except the one-off grayscale filter. */
+
+/* ---- label swap: the label slides up and out, its twin slides in from below */
+.swap { display: inline-grid; overflow: hidden; line-height: 1.25; }
+.swap__a, .swap__b {
+  grid-area: 1 / 1;
+  transition: transform 460ms var(--ease-rise);
+}
+.swap__b { transform: translateY(110%); }
+:is(a, button):is(:hover, :focus-visible) > .swap > .swap__a { transform: translateY(-110%); }
+:is(a, button):is(:hover, :focus-visible) > .swap > .swap__b { transform: translateY(0); }
+.ghost { display: inline-flex; }
+.ghost:hover { opacity: 1; }   /* the swap carries the hover now */
+
+/* ---- arrow chip: a small round badge that turns to point the way */
+.pill--chip { gap: .75rem; padding-right: .375rem; }
+.chip {
+  display: grid; place-items: center; flex: none;
+  width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  background: var(--dark-canvas); color: var(--cream);
+  transition: transform 460ms var(--ease-rise);
+}
+.chip svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  transform: rotate(-45deg); transition: transform 460ms var(--ease-rise); }
+.pill--chip:hover .chip, .pill--chip:focus-visible .chip { transform: scale(1.06); }
+.pill--chip:hover .chip svg, .pill--chip:focus-visible .chip svg { transform: rotate(0deg); }
+
+/* ---- footer button row, on the light ground */
+.colophon__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-3); margin-top: var(--sc-7); }
+.pill--ink { background: var(--sc-ink); color: var(--sc-canvas); }
+.pill--ink:hover { background: var(--sc-accent); }
+.pill--ink .chip { background: var(--sc-canvas); color: var(--sc-ink); }
+.pill--line {
+  background: transparent; color: var(--sc-ink);
+  box-shadow: inset 0 0 0 1px var(--sc-hairline-strong);
+  transition: transform 220ms var(--ease-rise), background-color 260ms var(--ease-rise), color 260ms var(--ease-rise);
+}
+.pill--line:hover { background: var(--sc-ink); color: var(--sc-canvas); }
+.colophon :is(.pill):focus-visible { outline-color: var(--sc-accent); }
+
+/* ---- photos come into colour under the pointer (pointer devices only) */
+@media (hover: hover) and (pointer: fine) {
+  .scene__thumb, .photo--portrait img {
+    filter: grayscale(1) contrast(1.04);
+    transition: filter 700ms var(--ease-rise);
+  }
+  /* The portrait's transform belongs to the parallax; only the thumbs scale. */
+  .scene__thumb { transition: filter 700ms var(--ease-rise), transform 700ms var(--ease-rise); }
+  .scene__thumb:hover, .photo--portrait:hover img { filter: none; }
+  .scene__thumb:hover { transform: scale(1.03); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap__a, .swap__b, .chip, .chip svg { transition: none; }
+  .swap__b { display: none; }
+  :is(a, button):is(:hover, :focus-visible) > .swap > .swap__a { transform: none; }
+}
