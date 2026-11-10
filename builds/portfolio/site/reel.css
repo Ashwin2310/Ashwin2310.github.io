@@ -1,0 +1,55 @@
+/* The reel: an endless strip of rounded photo cards closing Chapter V.
+   Two identical sets sit side by side; the track slides left by exactly one
+   set, so the loop has no seam. Edges dissolve into the dark ground. */
+
+.reel {
+  --reel-h: clamp(13rem, 26vw, 20rem);
+  --reel-gap: clamp(0.75rem, 1.4vw, 1.25rem);
+  --reel-time: 70s;
+  margin-top: var(--sc-8);
+  padding-block: var(--sc-4) var(--sc-9);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+}
+.reel__track {
+  display: flex; width: max-content;
+  animation: reel-slide var(--reel-time) linear infinite;
+  will-change: transform;
+}
+.reel:hover .reel__track { animation-play-state: paused; }
+
+.reel__set {
+  display: flex; gap: var(--reel-gap);
+  margin: 0; padding: 0 var(--reel-gap) 0 0; list-style: none;
+}
+.reel__card {
+  flex: none; height: var(--reel-h);
+  border-radius: 1.5rem; overflow: hidden;
+  background: var(--sc-surface);
+  transition: transform 600ms var(--ease-rise);
+}
+.reel__card img {
+  display: block; height: 100%; width: auto;
+  transition: transform 900ms var(--ease-rise);
+}
+.reel__card:hover { transform: translateY(-6px); }
+.reel__card:hover img { transform: scale(1.06); }
+
+@keyframes reel-slide {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (max-width: 700px) {
+  .reel { --reel-h: 11rem; --reel-time: 55s; }
+  .reel__card { border-radius: 1rem; }
+}
+
+/* Reduced motion: no drift. One set, scrollable by hand. */
+@media (prefers-reduced-motion: reduce) {
+  .reel { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .reel__track { animation: none; }
+  .reel__set[aria-hidden] { display: none; }
+  .reel__card, .reel__card img { transition: none; }
+}
