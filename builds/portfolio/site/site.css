@@ -99,9 +99,8 @@ body { background: var(--sc-canvas); }
 .folio__cta { color: var(--sc-accent) !important; font-weight: 500; text-decoration: underline !important; text-underline-offset: 0.22em; }
 .folio__cta:hover { color: var(--sc-ink) !important; }
 
-/* On phones the folio strip sits over the dark chapter, so it inverts with it.
-   On desktop it lives in the bone margin, which never goes dark. */
-@media (max-width: 1099px) {
+/* Dark sections bleed under the margin, so the folio inverts over them everywhere. */
+@media all {
   .folio.is-dark { color: var(--dark-ink); }
   .folio.is-dark .folio__list a { color: var(--dark-ink-soft); }
   .folio.is-dark .folio__list a[aria-current="true"],
@@ -581,4 +580,278 @@ html:not(.js) .wins-act { height: auto !important; }
 @media (max-width: 1099px) {
   .folio__cta:hover { color: var(--sc-accent-ink) !important; opacity: 0.9; }
   .folio__cta:active { transform: scale(0.97); }
+}
+
+/* ================================================================ bleed ==
+   Dark sections run under the desktop margin column, edge to edge. */
+@media (min-width: 1100px) {
+  .bleed { margin-left: calc(-1 * var(--folio-w)); padding-left: var(--folio-w); }
+}
+.ground-dark { --sc-surface: #16261F; color-scheme: dark; }
+
+/* ================================================================= hero ==
+   Cinematic plate: dark ground, the photo off the right edge, measured fades
+   (side letterbox + bottom) so the type sits on clean ground. */
+:root { --ease-rise: cubic-bezier(.22, 1, .36, 1); --cream: #F2EEE4; }
+.hero {
+  position: relative; min-height: 100svh; overflow: clip;
+  display: grid; grid-template-rows: 1fr auto; align-items: end;
+  background: var(--dark-canvas);
+}
+.hero__plate { position: absolute; inset: 0 0 0 auto; width: 62%; }
+.hero__move { position: absolute; inset: -3%; transform: translate3d(var(--px, 0px), var(--py, 0px), 0); will-change: transform; }
+.hero__img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 32% 30%;
+  transform: scale(var(--hs, 1.04)); transition: transform 1400ms var(--ease-rise), filter 1400ms var(--ease-rise);
+}
+.hero.is-settled .hero__img { --hs: 1; filter: brightness(.82); }
+.hero__plate::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to right, var(--dark-canvas) 0%, rgb(15 31 24 / .82) 14%, rgb(15 31 24 / .35) 34%, transparent 52%),
+    linear-gradient(to bottom, transparent 62%, rgb(15 31 24 / .45) 76%, rgb(15 31 24 / .88) 90%, var(--dark-canvas) 100%),
+    linear-gradient(to top, transparent 82%, rgb(15 31 24 / .5) 100%);
+}
+.hero__copy {
+  position: relative; z-index: 1;
+  padding: 0 var(--sc-gutter) clamp(2.5rem, 8vh, 6rem);
+  max-width: 54rem;
+}
+.hero__name {
+  margin: 0; font-family: var(--sc-font-display); font-weight: 400;
+  font-size: clamp(3.6rem, 1.4rem + 8.4vw, 9.5rem); line-height: .92; letter-spacing: -0.045em;
+  color: var(--cream);
+}
+.hero__role {
+  margin: var(--sc-6) 0 0; font-size: var(--sc-t-sm); font-weight: 500;
+  letter-spacing: var(--sc-track-wide); text-transform: uppercase; color: var(--dark-accent);
+}
+.hero__claim {
+  margin: var(--sc-4) 0 0; max-width: 30ch;
+  font-family: var(--sc-font-display); font-size: var(--sc-t-xl); line-height: 1.25; letter-spacing: -0.015em;
+  color: color-mix(in oklab, var(--cream) 86%, transparent); text-wrap: balance;
+}
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-5); margin-top: var(--sc-7); }
+
+.pill {
+  display: inline-flex; align-items: center; height: 3rem; padding: 0 1.5rem;
+  border-radius: 999px; background: var(--cream); color: #12140F;
+  font-weight: 500; text-decoration: none; white-space: nowrap;
+  transition: transform 220ms var(--ease-rise), background-color 200ms var(--ease-rise);
+}
+.pill:hover { transform: translateY(-1px); background: #FFFFFF; }
+.pill:active { transform: scale(.97); }
+.ghost {
+  color: var(--cream); text-decoration: none; font-weight: 500; letter-spacing: .01em;
+  transition: opacity 180ms var(--ease-rise);
+}
+.ghost:hover { opacity: .65; }
+.ghost:active { opacity: .5; }
+:is(.pill, .ghost):focus-visible { outline: 2px solid var(--dark-accent); outline-offset: 3px; }
+
+.go {
+  display: grid; place-items: center; width: 3.25rem; height: 3.25rem; margin-left: var(--sc-2);
+  border: 1.5px solid var(--cream); border-radius: 50%; color: var(--cream);
+  transition: background-color 300ms var(--ease-rise), color 300ms var(--ease-rise), transform 200ms var(--ease-rise);
+}
+.go svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.go:hover, .go:focus-visible { background: var(--cream); color: #12140F; }
+.go:active { transform: scale(.94); }
+.go:focus-visible { outline: 2px solid var(--dark-accent); outline-offset: 3px; }
+
+.hero__strip {
+  position: relative; z-index: 1;
+  display: flex; flex-wrap: wrap; gap: var(--sc-3) var(--sc-7);
+  padding: var(--sc-5) var(--sc-gutter) var(--sc-6);
+  border-top: 1px solid rgb(242 238 228 / .12);
+  font-size: var(--sc-t-sm); font-weight: 500; letter-spacing: .02em; color: #8E9A93;
+}
+
+/* Phones: the photo becomes the full background; fades darken where the copy sits. */
+@media (max-width: 899px) {
+  .hero__plate { width: 100%; }
+  .hero__img { object-position: 36% 22%; }
+  .hero__plate::after {
+    background:
+      linear-gradient(to right, rgb(15 31 24 / .62), rgb(15 31 24 / .30) 55%, rgb(15 31 24 / .10)),
+      linear-gradient(to bottom, rgb(15 31 24 / .55) 0%, rgb(15 31 24 / .10) 20%, rgb(15 31 24 / .25) 45%, rgb(15 31 24 / .86) 68%, var(--dark-canvas) 92%);
+  }
+  .hero__copy { padding-top: 40svh; }
+  .hero__strip { gap: var(--sc-2) var(--sc-5); font-size: var(--sc-t-xs); }
+  .go { width: 2.9rem; height: 2.9rem; }
+}
+
+/* ========================================================== loader + rise == */
+.loader { display: none; }
+.js .loader {
+  position: fixed; inset: 0; z-index: 60; display: grid; place-items: center;
+  background: var(--dark-canvas); transition: opacity 900ms ease, visibility 0s 900ms;
+}
+.js .loader span { width: 9px; height: 9px; border-radius: 50%; background: var(--cream); animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(.4); opacity: .4; } }
+.js.is-loaded .loader { opacity: 0; visibility: hidden; }
+
+.js .rise { opacity: 0; transform: translateY(14px); }
+.js.is-loaded .rise {
+  opacity: 1; transform: none;
+  transition: opacity 900ms var(--ease-rise), transform 900ms var(--ease-rise);
+  transition-delay: calc(250ms + var(--r, 0) * 80ms);
+}
+
+/* ============================================== V: scenes on dark ground == */
+.off { padding-bottom: var(--sc-10); }
+.off__intro { padding-bottom: var(--sc-8); }
+.off__head { max-width: 20ch; color: var(--cream); }
+.scene { position: relative; display: grid; align-items: center; }
+.scene + .scene { margin-top: var(--sc-9); }
+.scene__media { margin: 0; position: relative; overflow: clip; }
+.scene__media img { display: block; width: 100%; height: calc(100% + 12vh); margin-top: -6vh; object-fit: cover; }
+.scene__text { padding: 0 var(--sc-gutter); position: relative; z-index: 1; }
+.scene__text h3 {
+  margin: 0; font-family: var(--sc-font-display); font-weight: 400; font-style: italic;
+  font-size: var(--sc-t-3xl); letter-spacing: -0.035em; line-height: 1; color: var(--cream);
+}
+.scene__text p { margin: var(--sc-3) 0 0; color: var(--dark-ink-soft); max-width: 28ch; }
+.scene__thumb {
+  display: block; margin-top: var(--sc-6); width: clamp(7rem, 12vw, 10rem); height: auto;
+  border-radius: var(--r-feature);
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+          mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+.scene__thumb--wide { width: clamp(9rem, 16vw, 13rem); }
+
+@media (min-width: 900px) {
+  .scene--right, .scene--left { min-height: 92vh; }
+  .scene--right { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+  .scene--left  { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
+  .scene--right .scene__media, .scene--left .scene__media { height: 92vh; }
+  /* The photo dissolves toward the copy and at its top and bottom. */
+  .scene--right .scene__media {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 32%), linear-gradient(to bottom, transparent, #000 14%, #000 84%, transparent);
+    -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(to right, transparent, #000 32%), linear-gradient(to bottom, transparent, #000 14%, #000 84%, transparent);
+            mask-composite: intersect;
+  }
+  .scene--left .scene__media {
+    -webkit-mask-image: linear-gradient(to left, transparent, #000 32%), linear-gradient(to bottom, transparent, #000 14%, #000 84%, transparent);
+    -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(to left, transparent, #000 32%), linear-gradient(to bottom, transparent, #000 14%, #000 84%, transparent);
+            mask-composite: intersect;
+  }
+  .scene--wide { display: block; }
+  .scene--wide .scene__media {
+    height: 78vh;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 62%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 62%, transparent);
+  }
+  .scene--wide .scene__media img { object-position: 50% 38%; }
+  .scene--wide .scene__text { position: absolute; left: 0; bottom: 4vh; }
+}
+@media (max-width: 899px) {
+  .scene { grid-template-columns: 1fr; gap: var(--sc-5); }
+  .scene--left .scene__media { order: 0; }
+  .scene__media { height: 78vh; }
+  .scene__media {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 74%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 74%, transparent);
+  }
+  .scene--wide .scene__text { margin-top: calc(-1 * var(--sc-8)); }
+}
+
+/* ============================================================ phone menu == */
+.folio__burger { display: none; }
+@media (max-width: 1099px) {
+  .folio__list { display: none !important; }
+  .folio__cta { margin-left: auto; }
+  .folio__burger {
+    display: grid; place-content: center; gap: 5px; width: 2.4rem; height: 2.4rem; margin-left: var(--sc-2);
+    border-radius: 999px; border: 1px solid var(--sc-hairline-strong); background: transparent; color: inherit; cursor: pointer;
+    transition: transform 160ms var(--ease-rise);
+  }
+  .folio__burger:active { transform: scale(.94); }
+  .folio__burger:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
+  .folio__burger i { display: block; width: 16px; height: 1.5px; background: currentColor; border-radius: 2px; transition: transform 300ms var(--ease-rise); }
+  .menu-open .folio__burger i:first-child { transform: translateY(3.25px) rotate(45deg); }
+  .menu-open .folio__burger i:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+  .menu-open .folio { color: var(--cream); background: rgb(15 31 24 / .5); border-color: rgb(242 238 228 / .16); }
+}
+.menu {
+  position: fixed; inset: 0; z-index: 15; display: none;
+  background: linear-gradient(180deg, rgb(15 31 24 / .97), rgb(10 21 16 / .99));
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  color: var(--cream);
+  opacity: 0; visibility: hidden; transition: opacity 420ms var(--ease-rise), visibility 0s 420ms;
+}
+@media (max-width: 1099px) { .menu { display: block; } }
+.menu-open .menu { opacity: 1; visibility: visible; transition: opacity 420ms var(--ease-rise); }
+.menu__inner { padding: 6.5rem var(--sc-gutter) var(--sc-7); display: flex; flex-direction: column; min-height: 100%; }
+.menu__eyebrow { margin: 0 0 var(--sc-5); font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide); text-transform: uppercase; color: #8E9A93; }
+.menu__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sc-2); }
+.menu__list a {
+  display: flex; align-items: baseline; gap: .6em; padding: .35em 0;
+  font-family: var(--sc-font-display); font-size: clamp(2rem, 9vw, 2.6rem); letter-spacing: -0.03em; line-height: 1.1;
+  color: var(--cream); text-decoration: none;
+}
+.menu__list a span { font-size: .45em; font-style: italic; color: var(--dark-accent); min-width: 1.8em; }
+.menu__list a:focus-visible { outline: 2px solid var(--dark-accent); outline-offset: 4px; border-radius: var(--r-control); }
+.menu__foot { margin-top: auto; padding-top: var(--sc-8); display: flex; align-items: center; gap: var(--sc-6); }
+.menu :is(.menu__eyebrow, .menu__list li, .menu__foot) { opacity: 0; transform: translateY(12px); transition: opacity 420ms var(--ease-rise), transform 520ms var(--ease-rise); }
+.menu-open .menu :is(.menu__eyebrow, .menu__list li, .menu__foot) { opacity: 1; transform: none; }
+.menu-open .menu .menu__eyebrow { transition-delay: 60ms; }
+.menu-open .menu .menu__list li:nth-child(1) { transition-delay: 100ms; }
+.menu-open .menu .menu__list li:nth-child(2) { transition-delay: 150ms; }
+.menu-open .menu .menu__list li:nth-child(3) { transition-delay: 200ms; }
+.menu-open .menu .menu__list li:nth-child(4) { transition-delay: 250ms; }
+.menu-open .menu .menu__list li:nth-child(5) { transition-delay: 300ms; }
+.menu-open .menu .menu__foot { transition-delay: 360ms; }
+html.menu-open { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .loader span { animation: none; }
+  .js .rise, .js.is-loaded .rise { transform: none; transition: opacity 300ms linear; transition-delay: 0ms; }
+  .hero__img, .hero__move { transition: none; transform: none; }
+  .menu, .menu *, .folio__burger i { transition-duration: 1ms !important; transition-delay: 0ms !important; }
+}
+
+/* hero refinements after the first render */
+.hero__plate { overflow: clip; }
+@media (min-width: 900px) {
+  .hero__copy { max-width: min(54rem, 46vw); }
+  .hero__claim { max-width: 22ch; }
+  .hero__plate::after {
+    background:
+      linear-gradient(to right, var(--dark-canvas) 0%, rgb(15 31 24 / .9) 12%, rgb(15 31 24 / .5) 30%, rgb(15 31 24 / .12) 48%, transparent 60%),
+      linear-gradient(to bottom, transparent 62%, rgb(15 31 24 / .45) 76%, rgb(15 31 24 / .88) 90%, var(--dark-canvas) 100%),
+      linear-gradient(to top, transparent 82%, rgb(15 31 24 / .5) 100%);
+  }
+}
+
+/* Scenes: dissolve the outer edges too, so no photo ever ends on a hard line. */
+@media (min-width: 900px) {
+  .scene--left .scene__media {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 66%, transparent), linear-gradient(to bottom, transparent, #000 14%, #000 84%, transparent);
+    -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(to right, transparent, #000 14%, #000 66%, transparent), linear-gradient(to bottom, transparent, #000 14%, #000 84%, transparent);
+            mask-composite: intersect;
+  }
+  .scene--wide .scene__media {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent), linear-gradient(to bottom, transparent, #000 16%, #000 62%, transparent);
+    -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent), linear-gradient(to bottom, transparent, #000 16%, #000 62%, transparent);
+            mask-composite: intersect;
+  }
+}
+
+/* Phones: photo owns the top of the screen; copy starts below the face. */
+@media (max-width: 899px) {
+  .hero { display: block; min-height: 100svh; }
+  .hero__plate { inset: 0 0 auto 0; width: 100%; height: 76svh; }
+  .hero__img { object-position: 38% 35%; }
+  .hero__plate::after {
+    background:
+      linear-gradient(to bottom, rgb(15 31 24 / .45) 0%, transparent 18%, transparent 52%, rgb(15 31 24 / .7) 74%, var(--dark-canvas) 100%);
+  }
+  .hero__copy { padding-top: 60svh; padding-bottom: var(--sc-6); }
+  .hero__name { font-size: clamp(3.2rem, 15vw, 4.6rem); }
+  .hero__role { margin-top: var(--sc-4); }
 }

@@ -9,10 +9,10 @@
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Ashwin Thomas · AI Product Owner at Honda Canada">
 <meta property="og:description" content="I turn slow, manual operations into systems that run themselves. Product and program work at Honda Canada and BMO, from discovery to go-live.">
-<meta property="og:image" content="photos/portrait-1000.jpg">
+<meta property="og:image" content="https://ashwin-thomas.vercel.app/photos/hero-1500.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#EDEBE3">
-<script>document.documentElement.classList.add("js")</script>
+<script>document.documentElement.classList.add("js");setTimeout(function(){document.documentElement.classList.add("is-loaded")},2500)</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,7 @@
 
 <a class="skip" href="#now">Skip to content</a>
 <div class="sc-grain" aria-hidden="true"></div>
+<div class="loader" data-loader aria-hidden="true"><span></span></div>
 
 <!-- The folio: margin navigation, chapter number and title, updates as chapters pass. -->
 <nav class="folio" aria-label="Chapters">
@@ -49,39 +50,66 @@
     <li><a href="#off" data-folio="off"><span class="folio__n">V</span> Off the clock</a></li>
   </ol>
   <a class="folio__cta" href="mailto:ashwinthomas2310@gmail.com">Email me</a>
+  <button class="folio__burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu" data-menu-toggle><i></i><i></i></button>
+</nav>
+
+<!-- Phone menu: full-screen, links reveal in sequence. -->
+<nav class="menu" id="menu" aria-label="Menu" aria-hidden="true" data-menu>
+  <div class="menu__inner">
+    <p class="menu__eyebrow">Menu</p>
+    <ul class="menu__list">
+      <li><a href="#now"><span>I</span> Now</a></li>
+      <li><a href="#proof"><span>II</span> Proof</a></li>
+      <li><a href="#before"><span>III</span> Before</a></li>
+      <li><a href="#built"><span>IV</span> Built</a></li>
+      <li><a href="#off"><span>V</span> Off the clock</a></li>
+    </ul>
+    <div class="menu__foot">
+      <a class="pill" href="mailto:ashwinthomas2310@gmail.com">Email me</a>
+      <a class="ghost" href="https://www.linkedin.com/in/ashthomas2310" rel="me noopener" target="_blank">LinkedIn</a>
+    </div>
+  </div>
 </nav>
 
 <main id="top">
 
-  <!-- TITLE PAGE: type on paper, no media above the fold. -->
-  <header class="title-page sc-wrap">
-    <div class="title-page__inner sc-stack" data-sc-in data-sc-stagger="70">
-      <h1 class="title-page__name">Ashwin Thomas</h1>
-      <p class="title-page__role">AI Product Owner at Honda Canada, Toronto</p>
-      <p class="title-page__claim">I turn slow, manual operations into systems that run themselves.</p>
-      <p class="title-page__links">
-        <a class="btn" href="mailto:ashwinthomas2310@gmail.com">Email me</a>
-        <a class="link" href="https://www.linkedin.com/in/ashthomas2310" rel="me noopener" target="_blank">LinkedIn</a>
-        <a class="link" href="https://github.com/Ashwin2310" rel="me noopener" target="_blank">GitHub</a>
-      </p>
+  <!-- HERO: a dark cinematic plate. The photo bleeds off the right edge and fades
+       into the ground; it tilts toward the pointer and settles when the arrow is hovered. -->
+  <header class="hero ground-dark bleed" data-chapter="top" data-hero>
+    <div class="hero__plate" aria-hidden="true">
+      <div class="hero__move">
+        <img class="hero__img" src="photos/hero-1500.jpg"
+             srcset="photos/hero-900.jpg 900w, photos/hero-1500.jpg 1500w"
+             sizes="(min-width: 900px) 60vw, 100vw"
+             width="1500" height="2000" fetchpriority="high" decoding="async" alt="">
+      </div>
+    </div>
+    <p class="sr-only">Photo: Ashwin on the Brooklyn Bridge at dusk.</p>
+
+    <div class="hero__copy">
+      <h1 class="hero__name rise" style="--r:1">Ashwin Thomas</h1>
+      <p class="hero__role rise" style="--r:2">AI Product Owner at Honda Canada · Toronto</p>
+      <p class="hero__claim rise" style="--r:3">I turn slow, manual operations into systems that run themselves.</p>
+      <div class="hero__actions rise" style="--r:4">
+        <a class="pill" href="mailto:ashwinthomas2310@gmail.com">Email me</a>
+        <a class="ghost" href="https://www.linkedin.com/in/ashthomas2310" rel="me noopener" target="_blank">LinkedIn</a>
+        <a class="ghost" href="https://github.com/Ashwin2310" rel="me noopener" target="_blank">GitHub</a>
+        <a class="go" href="#now" aria-label="See my work" data-hero-go>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M6 14l6 6 6-6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__strip rise" style="--r:5" aria-label="Where I've worked and studied">
+      <span>Honda Canada</span><span>BMO Financial Group</span><span>IKO Industries</span><span>Toronto Metropolitan University</span>
     </div>
   </header>
 
   <!-- I · NOW: Honda Canada. Intro spread, then four main wins in a pinned sequence. -->
   <div id="now" data-chapter="now">
     <section class="chapter sc-section now-intro" data-sc-act="flow">
-      <div class="sc-wrap spread spread--portrait">
+      <div class="sc-wrap spread">
         <p class="intertitle"><span>I</span> Now</p>
-        <figure class="portrait">
-          <div class="photo photo--portrait">
-            <img data-sc-parallax="-0.05" src="photos/portrait-1000.jpg"
-                 srcset="photos/portrait-600.jpg 600w, photos/portrait-1000.jpg 1000w"
-                 sizes="(min-width: 900px) 17rem, 90vw"
-                 width="1000" height="1333" loading="lazy" decoding="async"
-                 alt="Ashwin leaning on the railing of the Brooklyn Bridge at dusk, a stone tower behind him.">
-          </div>
-          <figcaption>Brooklyn Bridge, New York.</figcaption>
-        </figure>
         <div class="spread__main sc-stack" data-sc-in data-sc-stagger="60">
           <h2 class="sc-display sc-display--lg">I take projects from the first workshop to the final switch-off.</h2>
           <p class="sc-lede">Since June 2026 I've been the AI Product Owner in Information Technology at Honda Canada, owning delivery across the contact-centre modernization program and our AI initiatives.</p>
@@ -140,7 +168,7 @@
   </div>
 
   <!-- II · PROOF: hard cut to the dark ground. The peak. -->
-  <div id="proof" class="ground-dark" data-chapter="proof">
+  <div id="proof" class="ground-dark bleed" data-chapter="proof">
     <section class="chapter sc-section proof-intro" data-sc-act="flow">
       <div class="sc-wrap">
         <p class="intertitle"><span>II</span> Proof</p>
@@ -195,6 +223,13 @@
       <div class="spread__main">
         <h2 class="sc-display sc-display--md">How I got here.</h2>
         <ol class="ledger" data-sc-in data-sc-stagger="60">
+          <li>
+            <p class="ledger__when">Jun 2026 to now</p>
+            <div>
+              <h3 class="ledger__what">AI Product Owner, Information Technology, <span>Honda Canada</span></h3>
+              <p>Own delivery across the contact-centre modernization program and AI initiatives, from discovery and requirements through approvals, UAT, go-live and decommissioning. Led the Salesforce Lightning go-live: 754 test cases, every one passed, with the old system retired on schedule.</p>
+            </div>
+          </li>
           <li>
             <p class="ledger__when">Jul 2023 to May 2026</p>
             <div>
@@ -291,65 +326,54 @@
     </div>
   </section>
 
-  <!-- V · OFF THE CLOCK: the person behind the numbers. Media in its own columns, captions beside, never under type. -->
-  <section id="off" class="chapter sc-section off" data-chapter="off" data-sc-act="flow">
-    <div class="sc-wrap">
+  <!-- V · OFF THE CLOCK: a dark chapter. Photos bleed to a screen edge and dissolve into
+       the ground instead of sitting in frames; the copy sits in the clear space beside them. -->
+  <section id="off" class="chapter off ground-dark bleed" data-chapter="off" data-sc-act="flow">
+    <div class="sc-wrap off__intro">
       <p class="intertitle"><span>V</span> Off the clock</p>
       <h2 class="sc-display sc-display--lg off__head">Outside work I'm on a court, behind a camera, or at a good table.</h2>
+    </div>
 
-      <!-- Athlete: tall action frame with the soccer shot overlapping its corner. -->
-      <div class="facet facet--athlete">
-        <div class="facet__media">
-          <figure class="photo photo--tall" data-sc-reveal="up" data-sc-reveal-at="0.04 0.22">
-            <img data-sc-parallax="-0.06" src="photos/badminton-1000.jpg"
-                 srcset="photos/badminton-600.jpg 600w, photos/badminton-1000.jpg 1000w"
-                 sizes="(min-width: 900px) 30rem, 80vw" width="1000" height="1778" loading="lazy" decoding="async"
-                 alt="Ashwin mid-jump on a badminton court, racket overhead, wearing a jersey with his name and the number 6.">
-          </figure>
-          <figure class="photo photo--inset">
-            <img src="photos/soccer-359.jpg" width="359" height="476" loading="lazy" decoding="async"
-                 alt="Ashwin dribbling a ball during an indoor soccer game.">
-          </figure>
-        </div>
-        <div class="facet__text">
-          <h3>Athlete</h3>
-          <p>Badminton and indoor soccer.</p>
-        </div>
+    <div class="scene scene--right">
+      <div class="scene__text">
+        <h3>Athlete</h3>
+        <p>Badminton and indoor soccer.</p>
+        <img class="scene__thumb" src="photos/soccer-359.jpg" width="359" height="476" loading="lazy" decoding="async"
+             alt="Ashwin dribbling a ball during an indoor soccer game.">
       </div>
+      <figure class="scene__media">
+        <img data-sc-parallax="-0.06" src="photos/badminton-1125.jpg"
+             srcset="photos/badminton-600.jpg 600w, photos/badminton-1125.jpg 1125w"
+             sizes="(min-width: 900px) 55vw, 100vw" width="1125" height="2000" loading="lazy" decoding="async"
+             alt="Ashwin mid-jump on a badminton court, racket overhead, wearing a jersey with his name and the number 6.">
+      </figure>
+    </div>
 
-      <!-- Photographer: one wide frame, the photograph given the full measure. -->
-      <div class="facet facet--photo">
-        <div class="facet__text">
-          <h3>Photographer</h3>
-          <p>Glass, light and the geometry of cities.</p>
-        </div>
-        <figure class="photo photo--wide" data-sc-reveal="left" data-sc-reveal-at="0.3 0.5">
-          <img data-sc-parallax="-0.05" src="photos/building-1400.jpg"
-               srcset="photos/building-800.jpg 800w, photos/building-1400.jpg 1400w"
-               sizes="(min-width: 1100px) 58rem, 92vw" width="1400" height="1867" loading="lazy" decoding="async"
-               alt="A glass office tower with a faceted, diamond-patterned facade reflecting late golden sunlight against a blue sky.">
-        </figure>
+    <div class="scene scene--wide">
+      <figure class="scene__media">
+        <img data-sc-parallax="-0.08" src="photos/building-1500.jpg"
+             srcset="photos/building-800.jpg 800w, photos/building-1500.jpg 1500w"
+             sizes="100vw" width="1500" height="2000" loading="lazy" decoding="async"
+             alt="A glass office tower with a faceted, diamond-patterned facade reflecting late golden sunlight against a blue sky.">
+      </figure>
+      <div class="scene__text">
+        <h3>Photographer</h3>
+        <p>Glass, light and the geometry of cities.</p>
       </div>
+    </div>
 
-      <!-- Foodie: two plates at different sizes, overlapping. -->
-      <div class="facet facet--food">
-        <div class="facet__media">
-          <figure class="photo photo--food-main" data-sc-reveal="up" data-sc-reveal-at="0.56 0.74">
-            <img data-sc-parallax="-0.05" src="photos/tartare-1200.jpg"
-                 srcset="photos/tartare-700.jpg 700w, photos/tartare-1200.jpg 1200w"
-                 sizes="(min-width: 900px) 34rem, 80vw" width="1200" height="1600" loading="lazy" decoding="async"
-                 alt="Beef tartare topped with a bright egg yolk, radish slices, mustard seeds and herbs in a striped ceramic bowl.">
-          </figure>
-          <figure class="photo photo--food-side">
-            <img src="photos/steak-900.jpg" srcset="photos/steak-600.jpg 600w, photos/steak-900.jpg 900w"
-                 sizes="(min-width: 900px) 16rem, 45vw" width="900" height="1200" loading="lazy" decoding="async"
-                 alt="A sliced bone-in steak with a rosemary sprig on a striped plate.">
-          </figure>
-        </div>
-        <div class="facet__text">
-          <h3>Foodie</h3>
-          <p>Always looking for the next good table.</p>
-        </div>
+    <div class="scene scene--left">
+      <figure class="scene__media">
+        <img data-sc-parallax="-0.05" src="photos/tartare-1500.jpg"
+             srcset="photos/tartare-700.jpg 700w, photos/tartare-1500.jpg 1500w"
+             sizes="(min-width: 900px) 55vw, 100vw" width="1500" height="2000" loading="lazy" decoding="async"
+             alt="Beef tartare topped with a bright egg yolk, radish slices, mustard seeds and herbs in a striped ceramic bowl.">
+      </figure>
+      <div class="scene__text">
+        <h3>Foodie</h3>
+        <p>Always looking for the next good table.</p>
+        <img class="scene__thumb scene__thumb--wide" src="photos/steak-600.jpg" width="600" height="800" loading="lazy" decoding="async"
+             alt="A sliced bone-in steak with a rosemary sprig on a striped plate.">
       </div>
     </div>
   </section>

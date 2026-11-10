@@ -219,13 +219,97 @@
     update();
   }
 
+
+  /* -------------------------------------------------------------- loader --
+     One pulsing dot until the hero photo is decoded (or 1.6s at most), then the
+     cover fades and the hero copy rises in sequence. */
+  function initLoader() {
+    var root = document.documentElement;
+    var img = document.querySelector('.hero__img');
+    var done = function () { root.classList.add('is-loaded'); };
+    setTimeout(done, 1600);
+    if (!img) { done(); return; }
+    if (img.complete && img.naturalWidth) { done(); return; }
+    img.addEventListener('load', done, { once: true });
+    img.addEventListener('error', function () { console.error('hero photo failed to load'); done(); }, { once: true });
+  }
+
+  /* ---------------------------------------------------------------- hero --
+     The plate leans toward the pointer and drifts with scroll; hovering the
+     arrow settles it (scale to rest, a touch darker). Pointer only on fine
+     pointers, nothing under reduced motion. */
+  function initHero() {
+    var hero = document.querySelector('[data-hero]');
+    if (!hero || reducedMotion()) return;
+    var move = hero.querySelector('.hero__move');
+    var go = hero.querySelector('[data-hero-go]');
+    var mx = 0, my = 0, tx = 0, ty = 0, raf = 0;
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    function paint() {
+      raf = 0;
+      tx += (mx - tx) * 0.12; ty += (my - ty) * 0.12;
+      var sy = Math.min(window.scrollY, window.innerHeight) * 0.12;
+      move.style.setProperty('--px', (tx * -14).toFixed(2) + 'px');
+      move.style.setProperty('--py', (ty * -10 + sy).toFixed(2) + 'px');
+      if (Math.abs(mx - tx) > 0.002 || Math.abs(my - ty) > 0.002) raf = requestAnimationFrame(paint);
+    }
+    function kick() { if (!raf) raf = requestAnimationFrame(paint); }
+
+    if (fine) {
+      hero.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect();
+        mx = (e.clientX - r.left) / r.width - 0.5;
+        my = (e.clientY - r.top) / r.height - 0.5;
+        kick();
+      });
+      hero.addEventListener('pointerleave', function () { mx = 0; my = 0; kick(); });
+    }
+    window.addEventListener('scroll', function () { if (window.scrollY < window.innerHeight * 1.2) paint(); }, { passive: true });
+    if (go) {
+      var on = function () { hero.classList.add('is-settled'); };
+      var off = function () { hero.classList.remove('is-settled'); };
+      go.addEventListener('pointerenter', on); go.addEventListener('pointerleave', off);
+      go.addEventListener('focus', on); go.addEventListener('blur', off);
+    }
+  }
+
+  /* ---------------------------------------------------------- phone menu -- */
+  function initMenu() {
+    var btn = document.querySelector('[data-menu-toggle]');
+    var menu = document.querySelector('[data-menu]');
+    if (!btn || !menu) return;
+    var root = document.documentElement;
+    var links = Array.prototype.slice.call(menu.querySelectorAll('a'));
+
+    function set(open, returnFocus) {
+      root.classList.toggle('menu-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menu.setAttribute('aria-hidden', String(!open));
+      links.forEach(function (a) { a.tabIndex = open ? 0 : -1; });
+      if (open) setTimeout(function () { if (links[0]) links[0].focus(); }, 60);
+      else if (returnFocus) btn.focus();
+    }
+    set(false, false);
+    btn.addEventListener('click', function () { set(!root.classList.contains('menu-open'), true); });
+    links.forEach(function (a) { a.addEventListener('click', function () { set(false, false); }); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && root.classList.contains('menu-open')) set(false, true);
+    });
+    window.matchMedia('(min-width: 1100px)').addEventListener('change', function (m) { if (m.matches) set(false, false); });
+  }
+
   function initYear() {
     var el = document.querySelector('[data-year]');
     if (el) el.textContent = String(new Date().getFullYear());
   }
 
   try {
+    initLoader();
     initFolio();
+    initHero();
+    initMenu();
     initFolioProgress();
     initWins();
     initPhotos();
