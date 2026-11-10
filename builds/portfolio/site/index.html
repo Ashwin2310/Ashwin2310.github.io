@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
 <link rel="stylesheet" href="scrollcraft.css">
 <link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="door.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -104,6 +105,21 @@
       <span>Honda Canada</span><span>BMO Financial Group</span><span>IKO Industries</span><span>Toronto Metropolitan University</span>
     </div>
   </header>
+
+  <!-- THE DOOR: a thin seam of light opens as you scroll and floods the screen with
+       the bone ground of Chapter I, so the dark hero hands over to the work. -->
+  <section class="door ground-dark bleed" data-chapter="top" data-sc-act="pin" data-sc-span="2.1" data-door aria-hidden="true">
+    <div data-sc-stage class="door__stage">
+      <div class="door__halo"></div>
+      <div class="door__frame"><div class="door__light"></div><div class="door__floor"></div></div>
+      <div class="door__mist">
+        <div class="door__fog door__fog--a"></div>
+        <div class="door__fog door__fog--b"></div>
+        <div class="door__fog door__fog--c"></div>
+      </div>
+      <p class="door__line sc-display">Step into the work.</p>
+    </div>
+  </section>
 
   <!-- I · NOW: Honda Canada. Intro spread, then four main wins in a pinned sequence. -->
   <div id="now" data-chapter="now">
@@ -391,5 +407,6 @@
 <script src="scrollcraft.js"></script>
 <script>ScrollCraft.mount(document.body);</script>
 <script src="site.js"></script>
+<script src="door.js"></script>
 </body>
 </html>

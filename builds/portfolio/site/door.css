@@ -1,0 +1,110 @@
+/* The door: a seam of light between the hero and Chapter I.
+   door.js writes progress into custom properties on the stage:
+     --sx / --sy  how far the light has opened (scale, 0..1)
+     --glow       halo strength
+     --fog        fog presence (fades as the light floods in)
+     --line       opacity of the caption
+     --mx / --my  pointer drift for the mist, in px
+   Only transform and opacity move. */
+
+.door { position: relative; background: var(--dark-canvas); }
+html:not(.js) .door { display: none; }
+
+.door__stage {
+  --sx: 0.004; --sy: 0.5; --glow: 0.3; --fog: 1; --line: 1; --mx: 0px; --my: 0px;
+  height: 100vh; height: 100svh; overflow: clip;   /* the engine makes it sticky */
+  background:
+    radial-gradient(60% 40% at 50% 100%, rgb(143 214 176 / 0.06), transparent 70%),
+    var(--dark-canvas);
+}
+
+/* The opening itself: a full-viewport panel of bone, scaled down to a seam. */
+.door__frame {
+  position: absolute; inset: 0;
+  transform: scale(var(--sx), var(--sy));
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+.door__light {
+  position: absolute; inset: 0;
+  background: var(--sc-canvas);
+  box-shadow: 0 0 2px rgb(242 238 228 / 0.9);
+}
+/* Light spilling onto the floor below the opening. */
+.door__floor {
+  position: absolute; left: -60%; right: -60%; top: 100%; height: 70%;
+  background: radial-gradient(50% 100% at 50% 0%, rgb(242 238 228 / 0.28), rgb(242 238 228 / 0.06) 45%, transparent 75%);
+}
+/* The opening hands over to Chapter I with no seam. */
+.door + #now > .chapter:first-child { border-top: 0; }
+
+/* Bloom around the seam. Blurred once; only its scale and opacity change. */
+.door__halo {
+  position: absolute; left: 50%; top: 50%;
+  width: 34vmin; height: 78vh; margin: -39vh 0 0 -17vmin;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(242 238 228 / 0.55), rgb(143 214 176 / 0.12) 55%, transparent);
+  filter: blur(24px);
+  opacity: var(--glow);
+  transform: scaleX(calc(1 + var(--sx) * 6));
+  will-change: transform, opacity;
+}
+
+/* Fog: three slow layers drifting across the light, nudged by the pointer. */
+.door__mist {
+  position: absolute; inset: 0; pointer-events: none;
+  opacity: var(--fog);
+  transform: translate3d(var(--mx), var(--my), 0);
+  transition: transform 900ms var(--ease-rise);
+}
+.door__fog {
+  position: absolute; left: -50%; width: 200%;
+  filter: blur(18px);
+  will-change: transform;
+}
+.door__fog--a {
+  bottom: -6%; height: 42%;
+  background:
+    radial-gradient(28% 50% at 20% 60%, rgb(242 238 228 / 0.14), transparent 70%),
+    radial-gradient(22% 45% at 55% 70%, rgb(242 238 228 / 0.12), transparent 70%),
+    radial-gradient(30% 50% at 85% 55%, rgb(242 238 228 / 0.10), transparent 70%);
+  animation: door-drift 46s linear infinite alternate;
+}
+.door__fog--b {
+  bottom: 4%; height: 34%;
+  background:
+    radial-gradient(25% 50% at 35% 50%, rgb(216 230 220 / 0.10), transparent 70%),
+    radial-gradient(30% 45% at 75% 60%, rgb(242 238 228 / 0.09), transparent 70%);
+  animation: door-drift 64s linear infinite alternate-reverse;
+}
+.door__fog--c {
+  top: 30%; height: 30%; opacity: 0.6;
+  background:
+    radial-gradient(20% 40% at 30% 50%, rgb(242 238 228 / 0.07), transparent 70%),
+    radial-gradient(24% 40% at 68% 45%, rgb(242 238 228 / 0.06), transparent 70%);
+  animation: door-drift 80s linear infinite alternate;
+}
+@keyframes door-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-22%, -3%, 0); }
+}
+
+.door__line {
+  position: absolute; left: 0; right: 0; bottom: 12vh; margin: 0;
+  text-align: center; color: var(--cream);
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem); font-style: italic;
+  opacity: var(--line);
+  transform: translateY(calc((1 - var(--line)) * -14px));
+}
+
+@media (max-width: 700px) {
+  .door__halo { width: 46vmin; margin-left: -23vmin; }
+  .door__line { bottom: 14svh; }
+}
+
+/* Reduced motion: no pin, no drift. The door is shown half open as a still. */
+@media (prefers-reduced-motion: reduce) {
+  .door { height: 100vh !important; height: 100svh !important; }
+  .door__fog { animation: none; }
+  .door__mist { transition: none; }
+}
