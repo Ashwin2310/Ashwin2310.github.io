@@ -131,7 +131,6 @@
     }
 
     tabs.forEach(function (t, i) {
-      t.closest('.board__row').style.setProperty('--i', i);
       t.addEventListener('click', function () { select(i, false, true); });
       t.addEventListener('keydown', function (e) {
         var n = tabs.length, j = null;
@@ -146,15 +145,35 @@
     });
     select(0, false, false);
 
-    if (!('IntersectionObserver' in window)) { board.classList.add('is-grown'); return; }
+    // Each row grows when it scrolls into view; rows arriving together stagger.
+    var rows = Array.prototype.slice.call(board.querySelectorAll('.board__row'));
+    if (!('IntersectionObserver' in window)) {
+      rows.forEach(function (r) { r.classList.add('is-grown'); });
+      return;
+    }
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        board.classList.add('is-grown');
-        io.disconnect();
+      var batch = entries.filter(function (e) { return e.isIntersecting; });
+      batch.forEach(function (e, k) {
+        e.target.style.setProperty('--d', k);
+        e.target.classList.add('is-grown');
+        io.unobserve(e.target);
       });
-    }, { rootMargin: '0px 0px -20% 0px', threshold: 0.15 });
-    io.observe(board);
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+    rows.forEach(function (r) { io.observe(r); });
+
+    // Backup for browsers that deliver observer callbacks late: a cheap scroll
+    // check grows any row already on screen. Removes itself once all have grown.
+    function sweep() {
+      var vh = window.innerHeight, left = 0;
+      rows.forEach(function (r) {
+        if (r.classList.contains('is-grown')) return;
+        var top = r.getBoundingClientRect().top;
+        if (top < vh * 0.88 && top > -r.offsetHeight) { r.classList.add('is-grown'); io.unobserve(r); }
+        else left++;
+      });
+      if (!left) window.removeEventListener('scroll', sweep);
+    }
+    window.addEventListener('scroll', sweep, { passive: true });
   }
 
   function reducedMotion() {

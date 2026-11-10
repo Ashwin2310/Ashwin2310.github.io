@@ -545,10 +545,10 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.18);
 }
 /* Grow on entry, row by row. Without JS the board renders already grown. */
-.js .board .board__fill { transform: scaleX(0); transition: transform 1100ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms + 120ms); }
-.js .board .board__now { opacity: 0; scale: 0.6; transition: opacity 300ms var(--ease-out), scale 300ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms + 900ms); }
-.js .board.is-grown .board__fill { transform: scaleX(calc(var(--done) / var(--stage-n))); }
-.js .board.is-grown .board__now { opacity: 1; scale: 1; }
+.js .board .board__fill { transform: scaleX(0); transition: transform 1100ms var(--ease-out); transition-delay: calc(var(--d, 0) * 90ms + 80ms); }
+.js .board .board__now { opacity: 0; scale: 0.6; transition: opacity 300ms var(--ease-out), scale 300ms var(--ease-out); transition-delay: calc(var(--d, 0) * 90ms + 860ms); }
+.js .board .is-grown .board__fill { transform: scaleX(calc(var(--done) / var(--stage-n))); }
+.js .board .is-grown .board__now { opacity: 1; scale: 1; }
 
 /* Panel: the story behind the selected row. */
 .board__panels { min-width: 0; }
