@@ -101,6 +101,102 @@
     }
   }
 
+
+  /* ------------------------------------------------------ delivery board --
+     ARIA tabs (vertical): click or arrow keys select a project; Home/End jump.
+     Rows grow to their real stage once the board scrolls into view. */
+  function initBoard() {
+    var board = document.querySelector('[data-board]');
+    if (!board) return;
+    var tabs = Array.prototype.slice.call(board.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    if (panels.some(function (p) { return !p; })) {
+      console.error('delivery board: a tab points at a missing panel');
+      return;
+    }
+    var narrow = window.matchMedia('(max-width: 999px)');
+
+    function select(i, focus, fromUser) {
+      tabs.forEach(function (t, k) {
+        var on = k === i;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        panels[k].hidden = !on;
+        panels[k].classList.toggle('is-entering', on && fromUser);
+      });
+      if (focus) tabs[i].focus();
+      if (fromUser && narrow.matches) {
+        panels[i].scrollIntoView({ block: 'nearest', behavior: reducedMotion() ? 'auto' : 'smooth' });
+      }
+    }
+
+    tabs.forEach(function (t, i) {
+      t.closest('.board__row').style.setProperty('--i', i);
+      t.addEventListener('click', function () { select(i, false, true); });
+      t.addEventListener('keydown', function (e) {
+        var n = tabs.length, j = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') j = (i + 1) % n;
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') j = (i - 1 + n) % n;
+        else if (e.key === 'Home') j = 0;
+        else if (e.key === 'End') j = n - 1;
+        if (j === null) return;
+        e.preventDefault();
+        select(j, true, true);
+      });
+    });
+    select(0, false, false);
+
+    if (!('IntersectionObserver' in window)) { board.classList.add('is-grown'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        board.classList.add('is-grown');
+        io.disconnect();
+      });
+    }, { rootMargin: '0px 0px -20% 0px', threshold: 0.15 });
+    io.observe(board);
+  }
+
+  function reducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  /* ------------------------------------------------------- photo fade-in -- */
+  function initPhotos() {
+    Array.prototype.forEach.call(document.querySelectorAll('.photo img'), function (img) {
+      var done = function () { img.classList.add('is-loaded'); };
+      if (img.complete) { done(); return; }
+      img.addEventListener('load', done, { once: true });
+      img.addEventListener('error', function () {
+        done();   // never leave an invisible frame behind
+        console.error('photo failed to load:', img.currentSrc || img.src);
+      }, { once: true });
+    });
+  }
+
+  /* ---------------------------------------------- folio reading progress -- */
+  function initFolioProgress() {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.folio [data-folio]'));
+    var pairs = links.map(function (a) {
+      return { a: a, el: document.querySelector('[data-chapter="' + a.getAttribute('data-folio') + '"]') };
+    }).filter(function (p) { return p.el; });
+    if (!pairs.length) return;
+    var queued = false;
+    function update() {
+      queued = false;
+      var vh = window.innerHeight;
+      pairs.forEach(function (p) {
+        var r = p.el.getBoundingClientRect();
+        var prog = clamp((vh * 0.5 - r.top) / Math.max(r.height, 1), 0, 1);
+        p.a.style.setProperty('--cp', prog.toFixed(3));
+      });
+    }
+    function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    update();
+  }
+
   function initYear() {
     var el = document.querySelector('[data-year]');
     if (el) el.textContent = String(new Date().getFullYear());
@@ -108,6 +204,9 @@
 
   try {
     initFolio();
+    initFolioProgress();
+    initBoard();
+    initPhotos();
     initRuler();
     drawGrid();
     initYear();
