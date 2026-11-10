@@ -1,0 +1,162 @@
+/* The lens: a photo sphere closing Chapter V, and its lightbox.
+   Geometry: .lens__world is a 0x0 point at the centre of the stage. Every card
+   and the title are positioned from that same point, so the title is always the
+   centre of the circle. lens.js writes the world, title and card transforms;
+   nothing here may put a centring transform on .lens__head (JS replaces it). */
+
+.lens {
+  --persp: 1150px;
+  --hw: min(56vw, 640px);
+  --cw: 180px;   /* card width, set by lens.js from the sphere radius */
+  background: #0B1611;
+}
+
+.lens__stage {
+  height: 100vh; height: 100svh; overflow: hidden;    /* sticky comes from the engine */
+  perspective: var(--persp); perspective-origin: 50% 50%;
+  background: radial-gradient(70% 60% at 50% 50%, #12231B 0%, #0B1611 60%, #070E0A 100%);
+  touch-action: pan-y;          /* vertical swipes still scroll the page */
+  user-select: none; -webkit-user-select: none;
+}
+@media (pointer: fine) { .lens__stage { cursor: none; } }
+
+.lens__world, .lens__orb {
+  position: absolute; top: 50%; left: 50%; width: 0; height: 0;
+  transform-style: preserve-3d;
+}
+.lens__world { will-change: transform; }
+.lens__orb { top: 0; left: 0; }
+
+/* Cards: placed on the sphere by lens.js; the figure's dark wash is the depth. */
+.lens__card {
+  position: absolute; top: 0; left: 0;
+  width: var(--cw); height: calc(var(--cw) * 4 / 3);
+  margin: calc(var(--cw) * -2 / 3) 0 0 calc(var(--cw) / -2);
+  padding: 0; border: 0; background: #0A120E; border-radius: 4px;
+  overflow: hidden; cursor: inherit;
+  --d: 0;
+}
+.lens__card img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 500ms var(--ease-rise);
+}
+.lens__card::after {
+  content: ""; position: absolute; inset: 0; border-radius: 4px; pointer-events: none;
+  background: rgb(0 0 0 / var(--d));
+  box-shadow: inset 0 0 0 1px rgb(242 238 228 / 0.08);
+}
+.lens__card:hover img { transform: scale(1.045); }
+.lens__card:focus-visible { outline: 2px solid var(--dark-accent); outline-offset: 3px; }
+
+/* Title: on the sphere's centre point, inside the 3D world. */
+.lens__head {
+  position: absolute; top: 0; left: 0;
+  width: var(--hw); margin: 0 0 0 calc(var(--hw) / -2);
+  text-align: center; pointer-events: none;
+  font-family: var(--sc-font-display); font-weight: 400; font-style: italic;
+  font-size: clamp(30px, 5.2vw, 76px); line-height: 1.04; letter-spacing: -0.03em;
+  color: var(--cream);
+  text-shadow: 0 1px 2px rgb(0 0 0 / .55), 0 4px 30px rgb(0 0 0 / .75);
+}
+.lens__inner { position: absolute; top: 0; left: 0; width: 100%; transform: translateY(-50%); }
+.lens__inner > span {
+  display: inline-block; opacity: 0; transform: translateY(.42em); filter: blur(7px);
+  transition: opacity 1.05s var(--ease-rise), transform 1.15s var(--ease-rise), filter 1.05s var(--ease-rise);
+  transition-delay: calc(.15s + var(--i) * .09s);
+}
+.lens.is-seen .lens__inner > span { opacity: 1; transform: none; filter: blur(0); }
+
+.lens__vig {
+  position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background: radial-gradient(ellipse 88% 92% at 50% 50%, transparent 48%, rgb(0 0 0 / .26) 80%, rgb(0 0 0 / .7) 100%);
+  transition: opacity 400ms var(--ease-rise);
+}
+
+.lens__hint {
+  position: absolute; z-index: 3; left: var(--sc-5); bottom: var(--sc-5); margin: 0;
+  font-size: var(--sc-t-xs); letter-spacing: .14em; text-transform: uppercase;
+  color: rgb(242 238 228 / .62); pointer-events: none; text-shadow: 0 1px 8px rgb(0 0 0 / .8);
+  transition: opacity 400ms var(--ease-rise);
+}
+.lens__hint-touch { display: none; }
+@media (pointer: coarse) { .lens__hint-fine { display: none; } .lens__hint-touch { display: inline; } }
+@media (min-width: 1100px) { .lens__hint { left: calc(var(--folio-w) + var(--sc-5)); } }
+
+/* Pointer ring (fine pointers only): says Drag, grows and says Open over a photo. */
+.lens__ring {
+  position: absolute; z-index: 4; top: 0; left: 0; pointer-events: none;
+  width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid rgb(242 238 228 / .6); color: var(--cream);
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  opacity: 0; transition: opacity 250ms var(--ease-rise);
+}
+.lens__ring span { transition: opacity 200ms var(--ease-rise); }
+.lens__ring.is-on { opacity: 1; }
+.lens__ring.is-card { background: rgb(242 238 228 / .14); }
+@media (pointer: coarse), (hover: none) { .lens__ring { display: none; } }
+
+/* While a photo is open, the archive dims behind it. */
+.lens.is-lit .lens__hint { opacity: 0; }
+
+/* Without JS: an ordinary wrapped grid of the same photos. */
+html:not(.js) .lens { height: auto !important; }
+html:not(.js) .lens__stage { height: auto; perspective: none; padding: var(--sc-8) var(--sc-5); }
+html:not(.js) .lens__world, html:not(.js) .lens__orb { position: static; width: auto; height: auto; }
+html:not(.js) .lens__orb { display: flex; flex-wrap: wrap; gap: var(--sc-3); justify-content: center; }
+html:not(.js) .lens__card { position: relative; margin: 0; --cw: 9rem; }
+html:not(.js) .lens__head { position: static; width: auto; margin: 0 0 var(--sc-6); }
+html:not(.js) .lens__inner { position: static; transform: none; }
+html:not(.js) .lens__inner > span { opacity: 1; transform: none; filter: none; }
+html:not(.js) .lens__hint, html:not(.js) .lens__ring, html:not(.js) .lens__vig { display: none; }
+
+@media (max-width: 768px) { .lens__head { font-size: clamp(26px, 8vw, 40px); } }
+@media (max-width: 640px) { .lens { --hw: min(84vw, 360px); } }
+
+/* ============================================================ lightbox == */
+.lightbox {
+  position: fixed; inset: 0; z-index: 120;
+  display: grid; place-items: center;
+  padding: clamp(56px, 8vh, 84px) var(--sc-5);
+  opacity: 0; pointer-events: none;
+  transition: opacity 420ms var(--ease-rise);
+}
+.lightbox[hidden] { display: none; }
+.lightbox.is-open { opacity: 1; pointer-events: auto; }
+.lightbox__scrim { position: absolute; inset: 0; background: rgb(5 10 8 / .55); }
+.lightbox__plate {
+  --ar: 0.75;
+  position: relative; margin: 0;
+  width: min(88vw, 620px, calc((100svh - 200px) * var(--ar)));
+  transform-origin: 0 0;
+  transition: transform 620ms var(--ease-rise), opacity 420ms var(--ease-rise);
+}
+.lightbox__shot {
+  position: relative; aspect-ratio: var(--ar); border-radius: 3px; overflow: hidden;
+  background: #0A120E; box-shadow: 0 30px 90px rgb(0 0 0 / .7);
+}
+.lightbox__shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lightbox__close {
+  position: absolute; top: 12px; right: 12px; min-height: 44px; padding: 10px 14px;
+  border: 1px solid rgb(242 238 228 / .78); border-radius: 999px;
+  background: rgb(0 0 0 / .35); color: var(--cream); font: inherit; font-size: 12.5px; cursor: pointer;
+  transition: background-color 200ms var(--ease-rise), border-color 200ms var(--ease-rise);
+}
+.lightbox__close:hover { background: rgb(0 0 0 / .6); border-color: #fff; }
+.lightbox__close:active { transform: scale(.97); }
+.lightbox__close:focus-visible { outline: 2px solid var(--dark-accent); outline-offset: 3px; }
+.lightbox__meta { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sc-4); padding-top: 14px; color: var(--cream); }
+.lightbox__meta h3 {
+  margin: 0; font-family: var(--sc-font-display); font-weight: 400; font-style: italic;
+  font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -0.015em; line-height: 1.1;
+}
+.lightbox__meta p { margin: 0; font-size: 13px; color: rgb(242 238 228 / .65); text-align: right; }
+@media (max-width: 640px) {
+  .lightbox__meta { flex-direction: column; gap: 4px; }
+  .lightbox__meta p { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lens__inner > span { transition-duration: .14s; transition-delay: 0s; transform: none; filter: none; }
+  .lens__card img, .lightbox, .lightbox__plate { transition-duration: .14s; }
+}
