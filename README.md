@@ -4,8 +4,8 @@ The personal site of Ashwin Thomas, a Product & Technical Program Manager in Tor
 
 It's a static site with no build step. The page lives in `builds/portfolio/site/`: plain
 HTML and CSS, a small scroll engine (`scrollcraft.js`), and `site.js` for the margin
-navigation and the "time ruler". Every push to `main` deploys it to GitHub Pages through
-`.github/workflows/pages.yml`.
+navigation and the "time ruler". It's live at https://ashwin-thomas.vercel.app and deploys from
+`builds/portfolio/site` with `vercel deploy --prod`.
 
 To preview it locally:
 

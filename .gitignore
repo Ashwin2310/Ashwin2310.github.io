@@ -8,3 +8,5 @@ FINGERPRINTS.md
 DEPLOY.md
 .scrollcraft.json
 .claude/
+.vercel/
+.env*
