@@ -1,0 +1,10 @@
+node_modules/
+builds/*/lab/
+.DS_Store
+.env
+# Local working notes (keep job-search details out of the public repo)
+builds/*/BRIEF.md
+FINGERPRINTS.md
+DEPLOY.md
+.scrollcraft.json
+.claude/
