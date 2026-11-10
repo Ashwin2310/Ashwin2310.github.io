@@ -117,7 +117,7 @@
       console.error('wins: markup is incomplete');
       return;
     }
-    var n = stories.length, current = -1, queued = false;
+    var n = stories.length, current = -1;
 
     function progress() {
       var r = act.getBoundingClientRect();
@@ -152,8 +152,9 @@
       roll(stories[i].getAttribute('data-fig'));
     }
 
-    function update() { queued = false; activate(indexFor(progress())); }
-    function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+    // Updated straight from scroll events (one rect read), not deferred to a frame,
+    // so the active win can never lag behind the scroll position.
+    function update() { activate(indexFor(progress())); }
 
     buttons.forEach(function (b, i) {
       b.addEventListener('click', function () {
@@ -173,8 +174,8 @@
     buttons[0].setAttribute('aria-current', 'true');
     current = 0;
 
-    window.addEventListener('scroll', queue, { passive: true });
-    window.addEventListener('resize', queue);
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
     update();
   }
 
