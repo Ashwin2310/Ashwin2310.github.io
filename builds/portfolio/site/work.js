@@ -59,6 +59,10 @@
     chips.forEach(function (c) {
       c.addEventListener('click', function () { applyFilter(c.getAttribute('data-filter')); });
     });
+    // Links elsewhere on the page can jump here with a filter already applied.
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-show]'), function (a) {
+      a.addEventListener('click', function () { applyFilter(a.getAttribute('data-show')); });
+    });
   }
 
   try { init(); } catch (err) { console.error('work.js:', err); }

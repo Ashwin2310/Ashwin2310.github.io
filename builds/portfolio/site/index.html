@@ -122,7 +122,7 @@
     </div>
   </section>
 
-  <!-- I · NOW: Honda Canada. Intro spread, then four main wins in a pinned sequence. -->
+  <!-- I · NOW: Honda Canada, a short intro. The wins live as tiles in Chapter II. -->
   <div id="now" data-chapter="now">
     <section class="chapter sc-section now-intro" data-sc-act="flow">
       <div class="sc-wrap spread">
@@ -130,6 +130,7 @@
         <div class="spread__main sc-stack" data-sc-in data-sc-stagger="60">
           <h2 class="sc-display sc-display--lg">I take projects from the first workshop to the final switch-off.</h2>
           <p class="sc-lede">Since June 2026 I've been the AI Product Owner in Information Technology at Honda Canada, owning delivery across the contact-centre modernization program and our AI initiatives.</p>
+          <p class="now__more"><a href="#work" data-show="automotive">See four Honda projects in Work</a></p>
         </div>
         <aside class="spread__margin" aria-label="At a glance">
           <dl class="facts">
@@ -139,52 +140,9 @@
         </aside>
       </div>
     </section>
-
-    <!-- The wins: a pinned sequence. Scroll steps through four wins; the figure rolls,
-         the story crossfades, a hairline marker glides down the list. Titles are buttons. -->
-    <section class="wins-act" data-sc-act="pin" data-sc-span="3.4" aria-labelledby="wins-title">
-      <div data-sc-stage class="wins-stage">
-        <div class="sc-wrap wins" data-wins>
-          <h3 id="wins-title" class="wins__label">Main wins at Honda Canada</h3>
-
-          <div class="wins__figure" aria-hidden="true">
-            <span class="wins__num" data-wins-num>754</span>
-          </div>
-
-          <div class="wins__stories">
-            <article class="win" id="win-1" data-fig="754" data-unit="test cases, every one passed">
-              <p class="win__unit"><span class="sr-only">754 </span>test cases, every one passed</p>
-              <p class="win__text">I led UAT and the Go/No-Go for Honda's move of its core contact centres to Salesforce Lightning. It went live on October 5, 2026, and the old Classic system was retired on schedule 17 days later.</p>
-            </article>
-            <article class="win" id="win-2" data-fig="83" data-unit="user stories from 19 legacy call flows">
-              <p class="win__unit"><span class="sr-only">83 </span>user stories from 19 legacy call flows</p>
-              <p class="win__text">For the telephony move to NICE CXone, I turned every call flow into plain-language stories with bilingual acceptance criteria, so business reviewers could sign off in one pass on a single 59-story pack.</p>
-            </article>
-            <article class="win" id="win-3" data-fig="52%" data-unit="lower annual cost projection">
-              <p class="win__unit"><span class="sr-only">52% </span>lower annual cost projection</p>
-              <p class="win__text">While building cost models for platform enhancements, I caught a pricing error that had roughly doubled one feature's estimate. With accurate figures, leadership approved all three features into the annual budget.</p>
-            </article>
-            <article class="win" id="win-4" data-fig="Adopted" data-unit="as the team's way to write requirements">
-              <p class="win__unit"><span class="sr-only">Adopted </span>as the team's way to write requirements</p>
-              <p class="win__text">I built a repeatable method for generating UI mockups straight from user stories with Microsoft 365 Copilot. After a demo to the product team, it became part of how we produce requirements.</p>
-            </article>
-          </div>
-
-          <nav class="wins__nav" aria-label="Choose a win">
-            <span class="wins__marker" aria-hidden="true"></span>
-            <ol>
-              <li><button type="button" data-win="0" aria-controls="win-1">Salesforce Lightning, live</button></li>
-              <li><button type="button" data-win="1" aria-controls="win-2">Telephony requirements, signed off</button></li>
-              <li><button type="button" data-win="2" aria-controls="win-3">A budget, corrected</button></li>
-              <li><button type="button" data-win="3" aria-controls="win-4">AI-assisted requirements</button></li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-    </section>
   </div>
 
-  <!-- II · WORK: project tiles across industries. Filter by industry; each tile opens
+  <!-- II · WORK: project tiles across industries, Honda first. Filter by industry; each tile opens
        in place into a short case: before, what I did, result. -->
   <section id="work" class="chapter sc-section work ground-dark bleed" data-chapter="work" data-work>
     <div class="sc-wrap">
@@ -192,13 +150,81 @@
       <div class="work__head">
         <h2 class="sc-display sc-display--md">Projects I took from problem to outcome.</h2>
         <div class="work__filters" role="group" aria-label="Filter projects">
-          <button type="button" class="chipf" data-filter="all" aria-pressed="true">All <span>6</span></button>
+          <button type="button" class="chipf" data-filter="all" aria-pressed="true">All <span>10</span></button>
+          <button type="button" class="chipf" data-filter="automotive" aria-pressed="false">Automotive <span>4</span></button>
           <button type="button" class="chipf" data-filter="banking" aria-pressed="false">Banking <span>3</span></button>
           <button type="button" class="chipf" data-filter="manufacturing" aria-pressed="false">Manufacturing <span>1</span></button>
           <button type="button" class="chipf" data-filter="builds" aria-pressed="false">Own builds <span>2</span></button>
         </div>
       </div>
       <div class="tiles" data-sc-in data-sc-stagger="70">
+        <article class="tile" data-cat="automotive" id="work-lightning">
+          <p class="tile__org">Automotive · Honda Canada</p>
+          <p class="tile__stat">754</p>
+          <p class="tile__unit">test cases, every one passed</p>
+          <h3 class="tile__title">Salesforce Lightning, live on schedule</h3>
+          <p class="tile__sum">Led UAT and the Go/No-Go for moving Honda's core contact centres to Salesforce Lightning.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-lightning-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-lightning-case" hidden>
+            <dl>
+              <div><dt>Before</dt><dd>Honda's core contact centres ran on Salesforce Classic.</dd></div>
+              <div><dt>What I did</dt><dd>Led user acceptance testing and the Go/No-Go decision for the move to Salesforce Lightning.</dd></div>
+              <div><dt>Result</dt><dd>Live on October 5, 2026. The old Classic system was retired on schedule 17 days later.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="tile" data-cat="automotive" id="work-cxone">
+          <p class="tile__org">Automotive · Honda Canada</p>
+          <p class="tile__stat">83</p>
+          <p class="tile__unit">user stories from 19 legacy call flows</p>
+          <h3 class="tile__title">Telephony requirements, signed off</h3>
+          <p class="tile__sum">Turned every legacy call flow into plain-language stories for the move to NICE CXone.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-cxone-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-cxone-case" hidden>
+            <dl>
+              <div><dt>Before</dt><dd>The telephony move to NICE CXone had to carry over 19 legacy call flows that business reviewers needed to approve.</dd></div>
+              <div><dt>What I did</dt><dd>Rewrote every call flow as plain-language user stories with bilingual acceptance criteria.</dd></div>
+              <div><dt>Result</dt><dd>Business reviewers signed off in one pass, on a single 59-story pack.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="tile" data-cat="automotive" id="work-budget">
+          <p class="tile__org">Automotive · Honda Canada</p>
+          <p class="tile__stat">52%</p>
+          <p class="tile__unit">lower annual cost projection</p>
+          <h3 class="tile__title">A budget, corrected</h3>
+          <p class="tile__sum">Caught a pricing error in the cost models for platform enhancements.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-budget-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-budget-case" hidden>
+            <dl>
+              <div><dt>Before</dt><dd>A pricing error had roughly doubled one feature's estimate in the cost models for platform enhancements.</dd></div>
+              <div><dt>What I did</dt><dd>Found the error while building the models and rebuilt them with accurate figures.</dd></div>
+              <div><dt>Result</dt><dd>Leadership approved all three features into the annual budget.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="tile" data-cat="automotive" id="work-copilot">
+          <p class="tile__org">Automotive · Honda Canada</p>
+          <p class="tile__stat">Adopted</p>
+          <p class="tile__unit">as the team's way to write requirements</p>
+          <h3 class="tile__title">AI-assisted requirements</h3>
+          <p class="tile__sum">A repeatable method for generating UI mockups straight from user stories with Microsoft 365 Copilot.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-copilot-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-copilot-case" hidden>
+            <dl>
+              <div><dt>What I did</dt><dd>Built a repeatable method for turning user stories into UI mockups with Microsoft 365 Copilot, then demoed it to the product team.</dd></div>
+              <div><dt>Result</dt><dd>It became part of how the team produces requirements.</dd></div>
+            </dl>
+          </div>
+        </article>
         <article class="tile" data-cat="banking" id="work-patch">
           <p class="tile__org">Banking · BMO Financial Group</p>
           <p class="tile__stat">10,000+</p>
@@ -304,7 +330,6 @@
           </div>
         </article>
       </div>
-      <p class="work__note">Honda Canada work is in <a href="#now">Chapter I</a>.</p>
     </div>
   </section>
 
