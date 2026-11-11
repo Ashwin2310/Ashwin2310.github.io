@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="door.css">
 <link rel="stylesheet" href="touches.css">
 <link rel="stylesheet" href="lens.css">
+<link rel="stylesheet" href="work.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -47,10 +48,9 @@
   <a class="folio__mark" href="#top">Ashwin Thomas</a>
   <ol class="folio__list">
     <li><a href="#now" data-folio="now"><span class="folio__n">I</span> Now</a></li>
-    <li><a href="#proof" data-folio="proof"><span class="folio__n">II</span> Proof</a></li>
-    <li><a href="#before" data-folio="before"><span class="folio__n">III</span> Before</a></li>
-    <li><a href="#built" data-folio="built"><span class="folio__n">IV</span> Built</a></li>
-    <li><a href="#off" data-folio="off"><span class="folio__n">V</span> Off the clock</a></li>
+    <li><a href="#work" data-folio="work"><span class="folio__n">II</span> Work</a></li>
+    <li><a href="#background" data-folio="background"><span class="folio__n">III</span> Background</a></li>
+    <li><a href="#off" data-folio="off"><span class="folio__n">IV</span> Off the clock</a></li>
   </ol>
   <a class="folio__cta" href="mailto:ashwinthomas2310@gmail.com">Email me</a>
   <button class="folio__burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu" data-menu-toggle><i></i><i></i></button>
@@ -62,10 +62,9 @@
     <p class="menu__eyebrow">Menu</p>
     <ul class="menu__list">
       <li><a href="#now"><span>I</span> Now</a></li>
-      <li><a href="#proof"><span>II</span> Proof</a></li>
-      <li><a href="#before"><span>III</span> Before</a></li>
-      <li><a href="#built"><span>IV</span> Built</a></li>
-      <li><a href="#off"><span>V</span> Off the clock</a></li>
+      <li><a href="#work"><span>II</span> Work</a></li>
+      <li><a href="#background"><span>III</span> Background</a></li>
+      <li><a href="#off"><span>IV</span> Off the clock</a></li>
     </ul>
     <div class="menu__foot">
       <a class="pill pill--chip" href="mailto:ashwinthomas2310@gmail.com"><span class="swap"><span class="swap__a">Email me</span><span class="swap__b" aria-hidden="true">Email me</span></span><span class="chip" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
@@ -185,96 +184,176 @@
     </section>
   </div>
 
-  <!-- II · PROOF: hard cut to the dark ground. The peak. -->
-  <div id="proof" class="ground-dark bleed" data-chapter="proof">
-    <section class="chapter sc-section proof-intro" data-sc-act="flow">
-      <div class="sc-wrap">
-        <p class="intertitle"><span>II</span> Proof</p>
-        <div class="proof-intro__head" data-sc-reveal="up" data-sc-reveal-at="0.12 0.42">
-          <h2 class="sc-display sc-display--xl">Make the slow part disappear.</h2>
+  <!-- II · WORK: project tiles across industries. Filter by industry; each tile opens
+       in place into a short case: before, what I did, result. -->
+  <section id="work" class="chapter sc-section work ground-dark bleed" data-chapter="work" data-work>
+    <div class="sc-wrap">
+      <p class="intertitle"><span>II</span> Work</p>
+      <div class="work__head">
+        <h2 class="sc-display sc-display--md">Projects I took from problem to outcome.</h2>
+        <div class="work__filters" role="group" aria-label="Filter projects">
+          <button type="button" class="chipf" data-filter="all" aria-pressed="true">All <span>6</span></button>
+          <button type="button" class="chipf" data-filter="banking" aria-pressed="false">Banking <span>3</span></button>
+          <button type="button" class="chipf" data-filter="manufacturing" aria-pressed="false">Manufacturing <span>1</span></button>
+          <button type="button" class="chipf" data-filter="builds" aria-pressed="false">Own builds <span>2</span></button>
         </div>
       </div>
-    </section>
-
-    <!-- Signature move: the time ruler. Scroll compresses real before figures to real after figures. -->
-    <section class="ruler-act" data-sc-act="pin" data-sc-span="2.2" aria-labelledby="ruler-title">
-      <div data-sc-stage class="ruler-stage">
-        <figure class="ruler sc-wrap" data-ruler>
-          <figcaption id="ruler-title" class="ruler__title">Two measurements, before and after. Keep scrolling.</figcaption>
-
-          <div class="ruler__row" data-from="120" data-to="5" data-unit="min" data-final="under 5">
-            <div class="ruler__meta">
-              <h3>Incident resolution</h3>
-              <p>BMO, 2022. Observability workflows in Dynatrace and Splunk.</p>
-            </div>
-            <div class="ruler__track" aria-hidden="true">
-              <div class="ruler__ghost"></div>
-              <div class="ruler__bar"></div>
-            </div>
-            <p class="ruler__value"><span class="ruler__num" data-num>120</span> <span class="ruler__unit">min</span></p>
-            <p class="sr-only">Before: 120 minutes. After: under 5 minutes.</p>
+      <div class="tiles" data-sc-in data-sc-stagger="70">
+        <article class="tile" data-cat="banking" id="work-patch">
+          <p class="tile__org">Banking · BMO Financial Group</p>
+          <p class="tile__stat">10,000+</p>
+          <p class="tile__unit">enterprise servers across the tools I owned</p>
+          <h3 class="tile__title">Servers that patch themselves</h3>
+          <p class="tile__sum">An internal tool that keeps BMO's Linux and Windows servers on the latest kernel, every month.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-patch-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-patch-case" hidden>
+            <dl>
+              <div><dt>Before</dt><dd>Keeping servers patched took manual effort, and on every major incident call, server vulnerabilities were the first thing teams checked.</dd></div>
+              <div><dt>What I did</dt><dd>Owned the roadmap for the patch automation tool BMO teams use across their Linux and Windows fleets, from requirements to launch.</dd></div>
+              <div><dt>Result</dt><dd>Once a server is set up, it updates to the latest kernel on a monthly schedule, with no manual step.</dd></div>
+            </dl>
           </div>
-
-          <div class="ruler__row" data-from="3" data-to="2" data-unit="days" data-final="2">
-            <div class="ruler__meta">
-              <h3>Order fulfilment cycle</h3>
-              <p>IKO Industries, 2021. New operating procedures across the supply chain.</p>
-            </div>
-            <div class="ruler__track" aria-hidden="true">
-              <div class="ruler__ghost"></div>
-              <div class="ruler__bar"></div>
-            </div>
-            <p class="ruler__value"><span class="ruler__num" data-num>3</span> <span class="ruler__unit">days</span></p>
-            <p class="sr-only">Before: 3 days. After: 2 days.</p>
+        </article>
+        <article class="tile" data-cat="banking" id="work-dbpatch">
+          <p class="tile__org">Banking · BMO Financial Group</p>
+          <p class="tile__stat">OS + DB</p>
+          <p class="tile__unit">patched in one scheduled run</p>
+          <h3 class="tile__title">Database patching, added</h3>
+          <p class="tile__sum">Extended patch automation from operating systems to SQL and Oracle databases.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-dbpatch-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-dbpatch-case" hidden>
+            <dl>
+              <div><dt>Before</dt><dd>Patch automation covered operating system patches only. Database patches were handled outside it.</dd></div>
+              <div><dt>What I did</dt><dd>Led the work to add SQL and Oracle database patching, scheduled alongside OS patching through SCCM.</dd></div>
+              <div><dt>Result</dt><dd>Teams now schedule operating system and database patches together, in one tool.</dd></div>
+            </dl>
           </div>
-
-          <p class="ruler__coda">Your scroll just did what the work did.</p>
-        </figure>
+        </article>
+        <article class="tile" data-cat="banking" id="work-triage">
+          <p class="tile__org">Banking · BMO Financial Group</p>
+          <p class="tile__stat">120 → &lt;5</p>
+          <p class="tile__unit">minutes to resolve an incident</p>
+          <h3 class="tile__title">From spreadsheet triage to minutes</h3>
+          <p class="tile__sum">Replaced manual incident checks in ELK and Excel with workflows that surface the data at once.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-triage-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-triage-case" hidden>
+            <dl>
+              <div><dt>Before</dt><dd>Each incident was checked by hand in ELK and tracked row by row in an Excel sheet.</dd></div>
+              <div><dt>What I did</dt><dd>As an intern, designed observability workflows in Dynatrace and Splunk that pull incident data straight away, so incidents are found, tracked and solved in one place.</dd></div>
+              <div><dt>Result</dt><dd>Incident resolution time fell from 120 minutes to under 5.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="tile" data-cat="manufacturing" id="work-parts">
+          <p class="tile__org">Manufacturing · IKO Industries</p>
+          <p class="tile__stat">15</p>
+          <p class="tile__unit">manufacturing sites on one system</p>
+          <h3 class="tile__title">One parts catalogue for 15 plants</h3>
+          <p class="tile__sum">Replaced emailed spreadsheets with a form that standardizes parts and sorts them by keyword.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-parts-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-parts-case" hidden>
+            <dl>
+              <div><dt>Before</dt><dd>Parts were standardized by emailing Excel sheets to plants and updating each row's specification by hand.</dd></div>
+              <div><dt>What I did</dt><dd>Led the program that moved this onto one digital inventory planning system (Node.js, React). Plants receive a form with every standard part already listed, and new parts are categorized automatically from keywords.</dd></div>
+              <div><dt>Result</dt><dd>Live across 15 manufacturing sites. On-time delivery cycle time improved 33%, from 3 days to 2.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="tile" data-cat="builds" id="work-agent">
+          <p class="tile__org">Own build · Python, NEAT</p>
+          <p class="tile__stat">92%</p>
+          <p class="tile__unit">win rate</p>
+          <h3 class="tile__title">A game agent that teaches itself</h3>
+          <p class="tile__sum">A Python agent that learns to play Flappy Bird through neuroevolution.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-agent-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-agent-case" hidden>
+            <dl>
+              <div><dt>What it is</dt><dd>An agent that starts knowing nothing and evolves, generation by generation, until it can play on its own.</dd></div>
+              <div><dt>How</dt><dd>NEAT (NeuroEvolution of Augmenting Topologies) grows and tunes small neural networks, keeping the ones that survive longest.</dd></div>
+              <div><dt>Result</dt><dd>A 92% win rate.</dd></div>
+            </dl>
+            <a class="tile__repo" href="https://github.com/Ashwin2310/AIFlappyBird" rel="noopener" target="_blank">View the code on GitHub</a>
+          </div>
+        </article>
+        <article class="tile" data-cat="builds" id="work-paths">
+          <p class="tile__org">Own build · React</p>
+          <p class="tile__stat">A* · Dijkstra</p>
+          <p class="tile__unit">search algorithms you can watch</p>
+          <h3 class="tile__title">Search, made visible</h3>
+          <p class="tile__sum">An interactive React tool that animates how pathfinding algorithms explore a grid.</p>
+          <button class="tile__more" type="button" aria-expanded="false" aria-controls="work-paths-case">
+            <span>Read the case</span><i aria-hidden="true"></i>
+          </button>
+          <div class="tile__case" id="work-paths-case" hidden>
+            <dl>
+              <div><dt>What it is</dt><dd>Draw walls on a grid, pick an algorithm, and watch it search for the shortest path step by step.</dd></div>
+              <div><dt>How</dt><dd>Built in React, with A* and Dijkstra implemented from scratch and animated as they run.</dd></div>
+              <div><dt>Result</dt><dd>A way to see why A* reaches the goal in fewer steps than Dijkstra.</dd></div>
+            </dl>
+            <a class="tile__repo" href="https://github.com/Ashwin2310/Path-Finding-Algorithm" rel="noopener" target="_blank">View the code on GitHub</a>
+          </div>
+        </article>
       </div>
-    </section>
-  </div>
+      <p class="work__note">Honda Canada work is in <a href="#now">Chapter I</a>.</p>
+    </div>
+  </section>
 
-  <!-- III · BEFORE: a dense, dated ledger. -->
-  <section id="before" class="chapter sc-section" data-chapter="before">
+  <!-- III · BACKGROUND: one dated ledger; each role carries its key number, in context. -->
+  <section id="background" class="chapter sc-section" data-chapter="background">
     <div class="sc-wrap spread">
-      <p class="intertitle"><span>III</span> Before</p>
+      <p class="intertitle"><span>III</span> Background</p>
       <div class="spread__main">
         <h2 class="sc-display sc-display--md">How I got here.</h2>
-        <ol class="ledger" data-sc-in data-sc-stagger="60">
+        <ol class="ledger ledger--wins" data-sc-in data-sc-stagger="60">
           <li>
             <p class="ledger__when">Jun 2026 to now</p>
             <div>
               <h3 class="ledger__what">AI Product Owner, Information Technology, <span>Honda Canada</span></h3>
-              <p>Own delivery across the contact-centre modernization program and AI initiatives, from discovery and requirements through approvals, UAT, go-live and decommissioning. Led the Salesforce Lightning go-live: 754 test cases, every one passed, with the old system retired on schedule.</p>
+              <p>Contact-centre modernization and AI initiatives, from discovery to decommissioning.</p>
             </div>
+            <p class="ledger__win">754 of 754 tests passed</p>
           </li>
           <li>
             <p class="ledger__when">Jul 2023 to May 2026</p>
             <div>
               <h3 class="ledger__what">Product &amp; Program Manager, Enterprise Cloud Infrastructure, <span>BMO Financial Group</span></h3>
-              <p>Owned the roadmap for internal tools and cloud services covering 10,000+ enterprise servers, from first idea to launch. Brought statistical anomaly detection onto the roadmap, built SQL and Power BI dashboards that caught fleet-wide risk early, and ran quarterly business reviews with senior leadership against success metrics agreed up front.</p>
+              <p>Roadmap for internal tools and cloud services, including patch automation for Linux, Windows and databases.</p>
             </div>
+            <p class="ledger__win">10,000+ servers</p>
           </li>
           <li>
             <p class="ledger__when">Jan to Aug 2022</p>
             <div>
               <h3 class="ledger__what">Application &amp; Software Analyst Intern, <span>BMO Financial Group</span></h3>
-              <p>Dug through fleet data in Dynatrace and Splunk to find systemic risks, then turned them into tooling requirements for the automation roadmap. Designed the observability workflows that took incident resolution from 120 minutes to under 5.</p>
+              <p>Observability workflows in Dynatrace and Splunk for incident triage.</p>
             </div>
+            <p class="ledger__win">120 to under 5 min</p>
           </li>
           <li>
             <p class="ledger__when">May to Dec 2021</p>
             <div>
               <h3 class="ledger__what">Program Manager Intern, Supply Chain &amp; Inventory, <span>IKO Industries</span></h3>
-              <p>Led the program that moved physical inventory operations onto one digital planning system (Node.js, React), deployed across 15 manufacturing sites. On-time delivery cycle times improved by 33%.</p>
+              <p>One digital inventory planning system, rolled out across 15 sites.</p>
             </div>
+            <p class="ledger__win">33% faster delivery</p>
           </li>
           <li>
             <p class="ledger__when">May to Aug 2019</p>
             <div>
               <h3 class="ledger__what">AI &amp; Machine Learning Research Assistant, <span>Toronto Metropolitan University</span></h3>
-              <p>Prepared and processed 52,000+ records with Python and NLP for model training.</p>
+              <p>Prepared training data for language models with Python and NLP.</p>
             </div>
+            <p class="ledger__win">52,000+ records</p>
           </li>
           <li>
             <p class="ledger__when">2018 to 2023</p>
@@ -287,68 +366,18 @@
       </div>
       <aside class="spread__margin" aria-label="Toolkit">
         <h3 class="margin-head">Toolkit</h3>
-        <p class="toolkit">SQL, Python, Power BI, Splunk, Dynatrace, ServiceNow, Jira, Confluence, Node.js, React, AWS</p>
+        <p class="toolkit">SQL, Python, Power BI, Splunk, Dynatrace, ServiceNow, SCCM, Jira, Confluence, Node.js, React, AWS</p>
         <h3 class="margin-head">Ways of working</h3>
         <p class="toolkit">Roadmaps, 0 to 1 launches, success metrics, QBRs, capacity planning, Agile and Waterfall</p>
       </aside>
     </div>
   </section>
 
-  <!-- IV · BUILT -->
-  <section id="built" class="chapter sc-section built" data-chapter="built" data-sc-act="flow">
-    <div class="sc-wrap spread">
-      <p class="intertitle"><span>IV</span> Built</p>
-      <div class="spread__main">
-        <h2 class="sc-display sc-display--md">Things I made on my own time.</h2>
-        <div class="works">
-          <article class="work">
-            <figure class="work__plate" data-sc-reveal="left" data-sc-reveal-at="0.08 0.34">
-              <svg viewBox="0 0 240 120" role="img" aria-label="Diagram: a network of nodes with weighted connections">
-                <g class="plate-lines">
-                  <path d="M30 30 L120 20 M30 30 L120 60 M30 30 L120 100 M30 90 L120 20 M30 90 L120 60 M30 90 L120 100 M120 20 L210 60 M120 60 L210 60 M120 100 L210 60"/>
-                </g>
-                <g class="plate-nodes">
-                  <circle cx="30" cy="30" r="7"/><circle cx="30" cy="90" r="7"/>
-                  <circle cx="120" cy="20" r="7"/><circle cx="120" cy="60" r="7"/><circle cx="120" cy="100" r="7"/>
-                  <circle class="plate-hot" cx="210" cy="60" r="9"/>
-                </g>
-              </svg>
-            </figure>
-            <div class="work__text">
-              <h3>An agent that teaches itself to play</h3>
-              <p class="work__stack">Python, NEAT neuroevolution</p>
-              <p>A game-playing agent trained by evolving neural networks rather than hand-coding rules. It reached a 92% win rate within 50 generations.</p>
-              <a class="link" href="https://github.com/Ashwin2310" rel="noopener" target="_blank">View on GitHub</a>
-            </div>
-          </article>
-          <article class="work work--flip">
-            <figure class="work__plate" data-sc-reveal="right" data-sc-reveal-at="0.3 0.58">
-              <svg viewBox="0 0 240 120" role="img" aria-label="Diagram: a grid with a shortest path traced between two points around walls">
-                <g class="plate-grid"></g>
-                <path class="plate-path" d="M20 100 H80 V40 H160 V80 H220"/>
-                <rect class="plate-wall" x="100" y="60" width="20" height="60"/>
-                <rect class="plate-wall" x="40" y="0" width="20" height="60"/>
-                <circle class="plate-hot" cx="220" cy="80" r="7"/>
-                <circle class="plate-start" cx="20" cy="100" r="7"/>
-              </svg>
-            </figure>
-            <div class="work__text">
-              <h3>Pathfinding Visualizer</h3>
-              <p class="work__stack">React, A* and Dijkstra</p>
-              <p>An interactive tool that animates how search algorithms explore a grid, so you can watch A* and Dijkstra make different choices on the same maze.</p>
-              <a class="link" href="https://github.com/Ashwin2310" rel="noopener" target="_blank">View on GitHub</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- V · OFF THE CLOCK: a dark chapter. Photos bleed to a screen edge and dissolve into
+  <!-- IV · OFF THE CLOCK: a dark chapter. Photos bleed to a screen edge and dissolve into
        the ground instead of sitting in frames; the copy sits in the clear space beside them. -->
   <section id="off" class="chapter off ground-dark bleed" data-chapter="off" data-sc-act="flow">
     <div class="sc-wrap off__intro">
-      <p class="intertitle"><span>V</span> Off the clock</p>
+      <p class="intertitle"><span>IV</span> Off the clock</p>
       <h2 class="sc-display sc-display--lg off__head">Outside work I'm on a court, behind a camera, or at a good table.</h2>
     </div>
 
@@ -492,5 +521,6 @@
 <script src="site.js"></script>
 <script src="door.js"></script>
 <script src="lens.js"></script>
+<script src="work.js"></script>
 </body>
 </html>

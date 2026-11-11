@@ -1,0 +1,131 @@
+/* Chapter II, Work: industry filters and project tiles that open in place.
+   Chapter III, Background: the ledger's key-number column. */
+
+.work { padding-block: var(--sc-9) var(--sc-8); }
+.work__head {
+  display: grid; gap: var(--sc-5); align-items: end;
+  margin-bottom: var(--sc-7);
+}
+.work__head .sc-display { max-width: 18ch; }
+@media (min-width: 900px) { .work__head { grid-template-columns: minmax(0, 1fr) auto; } }
+
+/* ---- filter chips */
+.work__filters { display: flex; flex-wrap: wrap; gap: var(--sc-2); }
+.chipf {
+  display: inline-flex; align-items: center; gap: .5rem;
+  min-height: 2.5rem; padding: 0 1rem; border-radius: 999px;
+  border: 1px solid var(--sc-hairline-strong); background: transparent;
+  color: var(--sc-ink-soft); font: inherit; font-size: var(--sc-t-sm); cursor: pointer;
+  transition: background-color 240ms var(--ease-rise), color 240ms var(--ease-rise), border-color 240ms var(--ease-rise), transform 200ms var(--ease-rise);
+}
+.chipf span { font-size: .8em; opacity: .7; font-variant-numeric: tabular-nums; }
+.chipf:hover { color: var(--sc-ink); border-color: rgb(242 238 228 / .5); }
+.chipf:active { transform: scale(.97); }
+.chipf:focus-visible { outline: 2px solid var(--dark-accent); outline-offset: 3px; }
+.chipf[aria-pressed="true"] { background: var(--cream); border-color: var(--cream); color: #12140F; }
+
+/* ---- tiles */
+.tiles {
+  display: grid; gap: var(--sc-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+}
+.tile {
+  position: relative; display: flex; flex-direction: column;
+  padding: var(--sc-6) var(--sc-5) var(--sc-5);
+  border-radius: 1.25rem;
+  background: linear-gradient(180deg, rgb(242 238 228 / .055), rgb(242 238 228 / .02));
+  box-shadow: inset 0 0 0 1px var(--sc-hairline), 0 18px 40px -24px rgb(0 0 0 / .6);
+  transition: transform 420ms var(--ease-rise), box-shadow 420ms var(--ease-rise), opacity 320ms var(--ease-rise);
+}
+.tile:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px var(--sc-hairline-strong), 0 28px 50px -24px rgb(0 0 0 / .7); }
+.tile.is-hiding { opacity: 0; transform: scale(.98); }
+.tile[hidden] { display: none; }
+
+.tile__org {
+  margin: 0; font-size: var(--sc-t-xs); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--dark-accent);
+}
+.tile__stat {
+  margin: var(--sc-5) 0 0;
+  font-family: var(--sc-font-display); font-weight: 400;
+  font-size: clamp(2.4rem, 4.2vw, 3.4rem); line-height: 1; letter-spacing: -0.035em;
+  color: var(--cream); font-variant-numeric: lining-nums;
+}
+.tile__unit { margin: var(--sc-2) 0 0; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+.tile__title {
+  margin: var(--sc-6) 0 0; padding-top: var(--sc-4); border-top: 1px solid var(--sc-hairline);
+  font-size: var(--sc-t-lg); font-weight: 500; letter-spacing: -0.01em; line-height: 1.25;
+}
+.tile__sum { margin: var(--sc-2) 0 0; color: var(--sc-ink-soft); font-size: var(--sc-t-sm); line-height: 1.6; }
+
+.tile__more {
+  margin-top: auto; align-self: flex-start;
+  display: inline-flex; align-items: center; gap: .6rem;
+  min-height: 44px; padding: var(--sc-4) 0 0; border: 0; background: none;
+  color: var(--sc-ink); font: inherit; font-size: var(--sc-t-sm); font-weight: 500; cursor: pointer;
+}
+.tile__more i {
+  position: relative; width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--sc-hairline-strong);
+  transition: transform 420ms var(--ease-rise), background-color 240ms var(--ease-rise);
+}
+.tile__more i::before, .tile__more i::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: .62rem; height: 1px;
+  margin: 0 0 0 -.31rem; background: currentColor;
+  transition: transform 420ms var(--ease-rise);
+}
+.tile__more i::after { transform: rotate(90deg); }
+.tile__more:hover i { background: rgb(242 238 228 / .1); }
+.tile__more[aria-expanded="true"] i { transform: rotate(180deg); }
+.tile__more[aria-expanded="true"] i::after { transform: rotate(0deg); }
+.tile__more:focus-visible { outline: 2px solid var(--dark-accent); outline-offset: 4px; border-radius: 6px; }
+
+/* Open tile: takes the full row and lays the case beside the summary. */
+.tile.is-open { grid-column: 1 / -1; }
+.tile.is-open:hover { transform: none; }
+@media (min-width: 900px) {
+  .tile.is-open {
+    display: grid; column-gap: var(--sc-8);
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    grid-template-rows: repeat(5, auto) 1fr;
+  }
+  .tile.is-open > :not(.tile__case) { grid-column: 1; }
+  .tile.is-open .tile__case { grid-column: 2; grid-row: 1 / -1; margin-top: 0; }
+}
+.tile__case { margin-top: var(--sc-5); }
+.tile.is-open .tile__case { animation: case-in 520ms var(--ease-rise) both; }
+@keyframes case-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.tile__case dl { margin: 0; display: grid; gap: var(--sc-4); }
+.tile__case dl > div { padding-top: var(--sc-3); border-top: 1px solid var(--sc-hairline); }
+.tile__case dt { font-size: var(--sc-t-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--sc-ink-soft); }
+.tile__case dd { margin: var(--sc-1) 0 0; line-height: 1.6; max-width: 58ch; }
+.tile__repo {
+  display: inline-block; margin-top: var(--sc-5);
+  color: var(--dark-accent); text-underline-offset: .2em; text-decoration-thickness: 1px;
+}
+.tile__repo:hover { color: var(--cream); }
+
+.work__note { margin: var(--sc-6) 0 0; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+.work__note a { color: var(--sc-ink); text-underline-offset: .2em; }
+
+/* ---- Background: the key number for each role, in context */
+@media (min-width: 900px) {
+  .ledger--wins > li { grid-template-columns: 9.5rem minmax(0, 1fr) 11rem; }
+}
+.ledger__win {
+  margin: 0; align-self: start; padding-top: .2em;
+  font-family: var(--sc-font-display); font-size: var(--sc-t-lg); line-height: 1.2; letter-spacing: -0.01em;
+  color: var(--sc-accent);
+}
+@media (min-width: 900px) { .ledger__win { text-align: right; } }
+.ledger--wins li p.ledger__win { margin: 0; color: var(--sc-accent); max-width: none; }
+
+/* Without JS: every case is shown, and the controls that need JS are removed. */
+html:not(.js) .tile__case[hidden] { display: block; }
+html:not(.js) .tile__more, html:not(.js) .work__filters { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tile, .tile__more i, .tile__more i::before, .tile__more i::after { transition-duration: .14s; }
+  .tile:hover { transform: none; }
+  .tile.is-open .tile__case { animation: none; }
+}
