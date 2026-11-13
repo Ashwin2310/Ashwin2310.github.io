@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
 <link rel="stylesheet" href="scrollcraft.css">
 <link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="hero-bg.css">
 <link rel="stylesheet" href="door.css">
 <link rel="stylesheet" href="touches.css">
 <link rel="stylesheet" href="lens.css">
@@ -75,16 +76,15 @@
 
 <main id="top">
 
-  <!-- HERO: a dark cinematic plate. The photo bleeds off the right edge and fades
-       into the ground; it tilts toward the pointer and settles when the arrow is hovered. -->
+  <!-- HERO: slow sheets of green glass (hero-bg.js) fill the ground; the photo bleeds
+       off the right edge and dissolves into the glass. -->
   <header class="hero ground-dark bleed" data-chapter="top" data-hero>
+    <div class="hero__bg" aria-hidden="true"><canvas data-hero-bg></canvas></div>
     <div class="hero__plate" aria-hidden="true">
-      <div class="hero__move">
-        <img class="hero__img" src="photos/hero-1500.jpg"
-             srcset="photos/hero-900.jpg 900w, photos/hero-1500.jpg 1500w"
-             sizes="(min-width: 900px) 60vw, 100vw"
-             width="1500" height="2000" fetchpriority="high" decoding="async" alt="">
-      </div>
+      <img class="hero__img" src="photos/hero-1500.jpg"
+           srcset="photos/hero-900.jpg 900w, photos/hero-1500.jpg 1500w"
+           sizes="(min-width: 900px) 62vw, 100vw"
+           width="1500" height="2000" fetchpriority="high" decoding="async" alt="">
     </div>
     <p class="sr-only">Photo: Ashwin on the Brooklyn Bridge at dusk.</p>
 
@@ -514,6 +514,7 @@
 <script src="scrollcraft.js"></script>
 <script>ScrollCraft.mount(document.body);</script>
 <script src="site.js"></script>
+<script src="hero-bg.js"></script>
 <script src="door.js"></script>
 <script src="lens.js"></script>
 <script src="work.js"></script>
