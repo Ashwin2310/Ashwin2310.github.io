@@ -40,8 +40,13 @@
       });
     });
 
+    var grid = root.querySelector('.tiles');
+
     function applyFilter(cat) {
       chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.getAttribute('data-filter') === cat)); });
+      // work.css widens the tiles to half the row each when only one or two are showing.
+      var shown = tiles.filter(function (t) { return cat === 'all' || t.getAttribute('data-cat') === cat; }).length;
+      if (grid) grid.setAttribute('data-shown', String(shown));
       tiles.forEach(function (t) {
         var show = cat === 'all' || t.getAttribute('data-cat') === cat;
         if (show) {

@@ -12,11 +12,12 @@
 <meta property="og:image" content="https://ashwin-thomas.vercel.app/photos/hero-1500.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#EDEBE3">
-<script>document.documentElement.classList.add("js");setTimeout(function(){document.documentElement.classList.add("is-loaded")},2500)</script>
+<script>document.documentElement.classList.add("js")</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" as="image" type="image/webp" href="photos/hero-1500.webp" imagesrcset="photos/hero-900.webp 900w, photos/hero-1500.webp 1500w" imagesizes="(min-width: 900px) 62vw, 100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
 <link rel="stylesheet" href="scrollcraft.css">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="hero-bg.css">
@@ -42,7 +43,6 @@
 
 <a class="skip" href="#now">Skip to content</a>
 <div class="sc-grain" aria-hidden="true"></div>
-<div class="loader" data-loader aria-hidden="true"><span></span></div>
 
 <!-- The folio: margin navigation, chapter number and title, updates as chapters pass. -->
 <nav class="folio" aria-label="Chapters">
@@ -81,10 +81,10 @@
   <header class="hero ground-dark bleed" data-chapter="top" data-hero>
     <div class="hero__bg" aria-hidden="true"><canvas data-hero-bg></canvas></div>
     <div class="hero__plate" aria-hidden="true">
-      <img class="hero__img" src="photos/hero-1500.jpg"
-           srcset="photos/hero-900.jpg 900w, photos/hero-1500.jpg 1500w"
+      <img class="hero__img" src="photos/hero-1500.webp"
+           srcset="photos/hero-900.webp 900w, photos/hero-1500.webp 1500w"
            sizes="(min-width: 900px) 62vw, 100vw"
-           width="1500" height="2000" fetchpriority="high" decoding="async" alt="">
+           width="1500" height="2000" fetchpriority="high" alt="">
     </div>
     <p class="sr-only">Photo: Ashwin on the Brooklyn Bridge at dusk.</p>
 
@@ -109,7 +109,7 @@
 
   <!-- THE DOOR: a thin seam of light opens as you scroll and floods the screen with
        the bone ground of Chapter I, so the dark hero hands over to the work. -->
-  <section class="door ground-dark bleed" data-chapter="top" data-sc-act="pin" data-sc-span="2.1" data-door aria-hidden="true">
+  <section class="door ground-dark bleed" data-chapter="top" data-sc-act="pin" data-sc-span="1.5" data-door aria-hidden="true">
     <div data-sc-stage class="door__stage">
       <div class="door__halo"></div>
       <div class="door__frame"><div class="door__light"></div><div class="door__floor"></div></div>
@@ -158,7 +158,7 @@
         </div>
       </div>
       <div class="tiles" data-sc-in data-sc-stagger="70">
-        <article class="tile" data-cat="automotive" id="work-lightning">
+        <article class="tile tile--lead" data-cat="automotive" id="work-lightning">
           <p class="tile__org">Automotive · Honda Canada</p>
           <p class="tile__stat">754</p>
           <p class="tile__unit">test cases, every one passed</p>
@@ -176,7 +176,7 @@
             </dl>
           </div>
         </article>
-        <article class="tile" data-cat="automotive" id="work-cxone">
+        <article class="tile tile--lead" data-cat="automotive" id="work-cxone">
           <p class="tile__org">Automotive · Honda Canada</p>
           <p class="tile__stat">83</p>
           <p class="tile__unit">user stories from 19 legacy call flows</p>
@@ -380,12 +380,12 @@
       <div class="scene__text">
         <h3>Athlete</h3>
         <p>Badminton and indoor soccer.</p>
-        <img class="scene__thumb" src="photos/soccer-359.jpg" width="359" height="476" loading="lazy" decoding="async"
+        <img class="scene__thumb" src="photos/soccer-359.webp" width="359" height="476" loading="lazy" decoding="async"
              alt="Ashwin dribbling a ball during an indoor soccer game.">
       </div>
       <figure class="scene__media">
-        <img data-sc-parallax="-0.06" src="photos/badminton-1125.jpg"
-             srcset="photos/badminton-600.jpg 600w, photos/badminton-1125.jpg 1125w"
+        <img data-sc-parallax="-0.06" src="photos/badminton-1125.webp"
+             srcset="photos/badminton-600.webp 600w, photos/badminton-1125.webp 1125w"
              sizes="(min-width: 900px) 55vw, 100vw" width="1125" height="2000" loading="lazy" decoding="async"
              alt="Ashwin mid-jump on a badminton court, racket overhead, wearing a jersey with his name and the number 6.">
       </figure>
@@ -393,8 +393,8 @@
 
     <div class="scene scene--wide">
       <figure class="scene__media">
-        <img data-sc-parallax="-0.08" src="photos/building-1500.jpg"
-             srcset="photos/building-800.jpg 800w, photos/building-1500.jpg 1500w"
+        <img data-sc-parallax="-0.08" src="photos/building-1500.webp"
+             srcset="photos/building-800.webp 800w, photos/building-1500.webp 1500w"
              sizes="100vw" width="1500" height="2000" loading="lazy" decoding="async"
              alt="A glass office tower with a faceted, diamond-patterned facade reflecting late golden sunlight against a blue sky.">
       </figure>
@@ -406,15 +406,15 @@
 
     <div class="scene scene--left">
       <figure class="scene__media">
-        <img data-sc-parallax="-0.05" src="photos/tartare-1500.jpg"
-             srcset="photos/tartare-700.jpg 700w, photos/tartare-1500.jpg 1500w"
+        <img data-sc-parallax="-0.05" src="photos/tartare-1500.webp"
+             srcset="photos/tartare-700.webp 700w, photos/tartare-1500.webp 1500w"
              sizes="(min-width: 900px) 55vw, 100vw" width="1500" height="2000" loading="lazy" decoding="async"
              alt="Beef tartare topped with a bright egg yolk, radish slices, mustard seeds and herbs in a striped ceramic bowl.">
       </figure>
       <div class="scene__text">
         <h3>Foodie</h3>
         <p>Always looking for the next good table.</p>
-        <img class="scene__thumb scene__thumb--wide" src="photos/steak-600.jpg" width="600" height="800" loading="lazy" decoding="async"
+        <img class="scene__thumb scene__thumb--wide" src="photos/steak-600.webp" width="600" height="800" loading="lazy" decoding="async"
              alt="A sliced bone-in steak with a rosemary sprig on a striped plate.">
       </div>
     </div>
@@ -428,50 +428,50 @@
     <div data-sc-stage class="lens__stage" data-lens-stage>
       <div class="lens__world" data-lens-world>
         <div class="lens__orb" data-lens-orb>
-          <button class="lens__card" type="button" data-full="photos/reel-sintra-towers-l.jpg" data-title="Yellow towers" data-place="Pena Palace, Sintra" aria-label="Open photo: Yellow towers, Pena Palace, Sintra">
-            <img src="photos/reel-sintra-towers.jpg" width="540" height="720" loading="lazy" decoding="async" alt="Yellow towers and a dark dome of a palace against a cloudy sky.">
+          <button class="lens__card" type="button" data-full="photos/reel-sintra-towers-l.webp" data-title="Yellow towers" data-place="Pena Palace, Sintra" aria-label="Open photo: Yellow towers, Pena Palace, Sintra">
+            <img src="photos/reel-sintra-towers.webp" width="540" height="720" loading="lazy" decoding="async" alt="Yellow towers and a dark dome of a palace against a cloudy sky.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/reel-nyc-glass-l.jpg" data-title="Folded glass" data-place="Midtown, New York" aria-label="Open photo: Folded glass, Midtown, New York">
-            <img src="photos/reel-nyc-glass.jpg" width="540" height="720" loading="lazy" decoding="async" alt="A faceted glass skyscraper rising behind an ornate street lamp.">
+          <button class="lens__card" type="button" data-full="photos/reel-nyc-glass-l.webp" data-title="Folded glass" data-place="Midtown, New York" aria-label="Open photo: Folded glass, Midtown, New York">
+            <img src="photos/reel-nyc-glass.webp" width="540" height="720" loading="lazy" decoding="async" alt="A faceted glass skyscraper rising behind an ornate street lamp.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/badminton-1125.jpg" data-title="Overhead" data-place="On court" aria-label="Open photo: Overhead, On court">
-            <img src="photos/badminton-600.jpg" width="600" height="1066" loading="lazy" decoding="async" alt="Ashwin mid-jump on a badminton court, racket overhead.">
+          <button class="lens__card" type="button" data-full="photos/badminton-1125.webp" data-title="Overhead" data-place="On court" aria-label="Open photo: Overhead, On court">
+            <img src="photos/badminton-600.webp" width="600" height="1066" loading="lazy" decoding="async" alt="Ashwin mid-jump on a badminton court, racket overhead.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/reel-madrid-tower-l.jpg" data-title="Late sun on stone" data-place="Palacio de Cibeles, Madrid" aria-label="Open photo: Late sun on stone, Palacio de Cibeles, Madrid">
-            <img src="photos/reel-madrid-tower.jpg" width="540" height="720" loading="lazy" decoding="async" alt="A carved stone clock tower with a Spanish flag, lit by late sun.">
+          <button class="lens__card" type="button" data-full="photos/reel-madrid-tower-l.webp" data-title="Late sun on stone" data-place="Palacio de Cibeles, Madrid" aria-label="Open photo: Late sun on stone, Palacio de Cibeles, Madrid">
+            <img src="photos/reel-madrid-tower.webp" width="540" height="720" loading="lazy" decoding="async" alt="A carved stone clock tower with a Spanish flag, lit by late sun.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/tartare-1500.jpg" data-title="Tartare" data-place="At the table" aria-label="Open photo: Tartare, At the table">
-            <img src="photos/tartare-700.jpg" width="700" height="934" loading="lazy" decoding="async" alt="Beef tartare topped with an egg yolk, radish and herbs.">
+          <button class="lens__card" type="button" data-full="photos/tartare-1500.webp" data-title="Tartare" data-place="At the table" aria-label="Open photo: Tartare, At the table">
+            <img src="photos/tartare-700.webp" width="700" height="934" loading="lazy" decoding="async" alt="Beef tartare topped with an egg yolk, radish and herbs.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/reel-barcelona-street-l.jpg" data-title="Looking up" data-place="Old town, Spain" aria-label="Open photo: Looking up, Old town, Spain">
-            <img src="photos/reel-barcelona-street.jpg" width="540" height="720" loading="lazy" decoding="async" alt="Ashwin photographed from below in a narrow street, balconied buildings rising to a blue sky.">
+          <button class="lens__card" type="button" data-full="photos/reel-barcelona-street-l.webp" data-title="Looking up" data-place="Old town, Spain" aria-label="Open photo: Looking up, Old town, Spain">
+            <img src="photos/reel-barcelona-street.webp" width="540" height="720" loading="lazy" decoding="async" alt="Ashwin photographed from below in a narrow street, balconied buildings rising to a blue sky.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/hero-1500.jpg" data-title="Dusk on the bridge" data-place="Brooklyn Bridge, New York" aria-label="Open photo: Dusk on the bridge, Brooklyn Bridge, New York">
-            <img src="photos/hero-900.jpg" width="900" height="1200" loading="lazy" decoding="async" alt="Ashwin on the Brooklyn Bridge at dusk.">
+          <button class="lens__card" type="button" data-full="photos/hero-1500.webp" data-title="Dusk on the bridge" data-place="Brooklyn Bridge, New York" aria-label="Open photo: Dusk on the bridge, Brooklyn Bridge, New York">
+            <img src="photos/hero-900.webp" width="900" height="1200" loading="lazy" decoding="async" alt="Ashwin on the Brooklyn Bridge at dusk.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/reel-vessel-l.jpg" data-title="Copper honeycomb" data-place="Hudson Yards, New York" aria-label="Open photo: Copper honeycomb, Hudson Yards, New York">
-            <img src="photos/reel-vessel.jpg" width="540" height="720" loading="lazy" decoding="async" alt="A copper honeycomb of stairways between glass towers.">
+          <button class="lens__card" type="button" data-full="photos/reel-vessel-l.webp" data-title="Copper honeycomb" data-place="Hudson Yards, New York" aria-label="Open photo: Copper honeycomb, Hudson Yards, New York">
+            <img src="photos/reel-vessel.webp" width="540" height="720" loading="lazy" decoding="async" alt="A copper honeycomb of stairways between glass towers.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/soccer-359.jpg" data-title="Indoor soccer" data-place="On the pitch" aria-label="Open photo: Indoor soccer, On the pitch">
-            <img src="photos/soccer-359.jpg" width="359" height="476" loading="lazy" decoding="async" alt="Ashwin dribbling a ball during an indoor soccer game.">
+          <button class="lens__card" type="button" data-full="photos/soccer-359.webp" data-title="Indoor soccer" data-place="On the pitch" aria-label="Open photo: Indoor soccer, On the pitch">
+            <img src="photos/soccer-359.webp" width="359" height="476" loading="lazy" decoding="async" alt="Ashwin dribbling a ball during an indoor soccer game.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/reel-sintra-clock-l.jpg" data-title="Red clock tower" data-place="Pena Palace, Sintra" aria-label="Open photo: Red clock tower, Pena Palace, Sintra">
-            <img src="photos/reel-sintra-clock.jpg" width="540" height="720" loading="lazy" decoding="async" alt="A red clock tower with cone-topped turrets above a yellow wall.">
+          <button class="lens__card" type="button" data-full="photos/reel-sintra-clock-l.webp" data-title="Red clock tower" data-place="Pena Palace, Sintra" aria-label="Open photo: Red clock tower, Pena Palace, Sintra">
+            <img src="photos/reel-sintra-clock.webp" width="540" height="720" loading="lazy" decoding="async" alt="A red clock tower with cone-topped turrets above a yellow wall.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/building-1500.jpg" data-title="Glass and gold" data-place="City light" aria-label="Open photo: Glass and gold, City light">
-            <img src="photos/building-800.jpg" width="800" height="1066" loading="lazy" decoding="async" alt="A glass office tower with a diamond-patterned facade in late golden sun.">
+          <button class="lens__card" type="button" data-full="photos/building-1500.webp" data-title="Glass and gold" data-place="City light" aria-label="Open photo: Glass and gold, City light">
+            <img src="photos/building-800.webp" width="800" height="1066" loading="lazy" decoding="async" alt="A glass office tower with a diamond-patterned facade in late golden sun.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/reel-montreal-market-l.jpg" data-title="Bonsecours at dusk" data-place="Old Montreal" aria-label="Open photo: Bonsecours at dusk, Old Montreal">
-            <img src="photos/reel-montreal-market.jpg" width="540" height="720" loading="lazy" decoding="async" alt="Ashwin seated on a bench at dusk beside a domed market hall strung with lights.">
+          <button class="lens__card" type="button" data-full="photos/reel-montreal-market-l.webp" data-title="Bonsecours at dusk" data-place="Old Montreal" aria-label="Open photo: Bonsecours at dusk, Old Montreal">
+            <img src="photos/reel-montreal-market.webp" width="540" height="720" loading="lazy" decoding="async" alt="Ashwin seated on a bench at dusk beside a domed market hall strung with lights.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/steak-1000.jpg" data-title="Bone-in" data-place="At the table" aria-label="Open photo: Bone-in, At the table">
-            <img src="photos/steak-600.jpg" width="600" height="800" loading="lazy" decoding="async" alt="A sliced bone-in steak with a rosemary sprig on a striped plate.">
+          <button class="lens__card" type="button" data-full="photos/steak-1000.webp" data-title="Bone-in" data-place="At the table" aria-label="Open photo: Bone-in, At the table">
+            <img src="photos/steak-600.webp" width="600" height="800" loading="lazy" decoding="async" alt="A sliced bone-in steak with a rosemary sprig on a striped plate.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/reel-bryant-park-l.jpg" data-title="Yellow chairs" data-place="Bryant Park, New York" aria-label="Open photo: Yellow chairs, Bryant Park, New York">
-            <img src="photos/reel-bryant-park.jpg" width="540" height="720" loading="lazy" decoding="async" alt="Pink flowers beside yellow café tables and a green kiosk.">
+          <button class="lens__card" type="button" data-full="photos/reel-bryant-park-l.webp" data-title="Yellow chairs" data-place="Bryant Park, New York" aria-label="Open photo: Yellow chairs, Bryant Park, New York">
+            <img src="photos/reel-bryant-park.webp" width="540" height="720" loading="lazy" decoding="async" alt="Pink flowers beside yellow café tables and a green kiosk.">
           </button>
-          <button class="lens__card" type="button" data-full="photos/portrait-1000.jpg" data-title="Railing" data-place="Brooklyn Bridge, New York" aria-label="Open photo: Railing, Brooklyn Bridge, New York">
-            <img src="photos/portrait-600.jpg" width="600" height="800" loading="lazy" decoding="async" alt="Ashwin leaning on the railing of the Brooklyn Bridge, a stone tower behind him.">
+          <button class="lens__card" type="button" data-full="photos/portrait-1000.webp" data-title="Railing" data-place="Brooklyn Bridge, New York" aria-label="Open photo: Railing, Brooklyn Bridge, New York">
+            <img src="photos/portrait-600.webp" width="600" height="800" loading="lazy" decoding="async" alt="Ashwin leaning on the railing of the Brooklyn Bridge, a stone tower behind him.">
           </button>
         </div>
         <h2 class="lens__head" data-lens-head><span class="lens__inner"><span style="--i:0">Through</span> <span style="--i:1">my</span> <span style="--i:2">lens</span></span></h2>

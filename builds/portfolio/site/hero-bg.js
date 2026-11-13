@@ -23,7 +23,7 @@
     'const vec3 DEEP   = vec3(0.063, 0.290, 0.204);',
     'const vec3 FOREST = vec3(0.118, 0.420, 0.306);',   /* --sc-accent #1E6B4E */
     'const vec3 MINT   = vec3(0.561, 0.839, 0.690);',   /* --dark-accent #8FD6B0 */
-    'const vec3 CREAM  = vec3(0.949, 0.933, 0.894);',   /* --cream #F2EEE4 */
+    'const vec3 CREAM  = vec3(0.929, 0.922, 0.890);',   /* --cream #EDEBE3 */
     '',
     '/* A smooth height field: two rounds of sine warping, then two crossed waves. */',
     'float field(vec2 p, float t) {',

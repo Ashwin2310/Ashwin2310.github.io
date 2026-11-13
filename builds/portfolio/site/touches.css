@@ -15,10 +15,10 @@
 .ghost:hover { opacity: 1; }   /* the swap carries the hover now */
 
 /* ---- arrow chip: a small round badge that turns to point the way */
-.pill--chip { gap: .75rem; padding-right: .375rem; }
+.pill--chip { gap: var(--sc-3); padding-right: var(--sc-1); }
 .chip {
   display: grid; place-items: center; flex: none;
-  width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
   background: var(--dark-canvas); color: var(--cream);
   transition: transform 460ms var(--ease-rise);
 }
@@ -42,14 +42,11 @@
 
 /* ---- photos come into colour under the pointer (pointer devices only) */
 @media (hover: hover) and (pointer: fine) {
-  .scene__thumb, .photo--portrait img {
+  .scene__thumb {
     filter: grayscale(1) contrast(1.04);
-    transition: filter 700ms var(--ease-rise);
+    transition: filter 700ms var(--ease-rise), transform 700ms var(--ease-rise);
   }
-  /* The portrait's transform belongs to the parallax; only the thumbs scale. */
-  .scene__thumb { transition: filter 700ms var(--ease-rise), transform 700ms var(--ease-rise); }
-  .scene__thumb:hover, .photo--portrait:hover img { filter: none; }
-  .scene__thumb:hover { transform: scale(1.03); }
+  .scene__thumb:hover { filter: none; transform: scale(1.03); }
 }
 
 @media (prefers-reduced-motion: reduce) {

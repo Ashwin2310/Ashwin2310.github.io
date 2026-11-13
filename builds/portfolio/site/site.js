@@ -1,6 +1,5 @@
 /* Page-specific behaviour. The engine (scrollcraft.js) is untouched; this file
-   drives what the kit does not have: the loader, the margin folio and the
-   phone menu. The hero background lives in hero-bg.js. */
+   drives what the kit does not have: the margin folio and the phone menu. The hero background lives in hero-bg.js. */
 (function () {
   'use strict';
 
@@ -16,6 +15,11 @@
     });
     var chapters = document.querySelectorAll('[data-chapter]');
     var visible = new Map();
+
+    // The page opens on the dark hero: start the folio in its dark state so it does not
+    // sit in light colours until the observer's first callback. (Set here, not in the
+    // markup, so the nav stays readable on the light chapters when scripts are off.)
+    folio.classList.toggle('is-dark', window.scrollY < window.innerHeight / 2);
 
     function render() {
       var best = null;
@@ -36,23 +40,6 @@
       render();
     }, { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.01, 0.5, 1] });
     Array.prototype.forEach.call(chapters, function (c) { io.observe(c); });
-  }
-
-  function reducedMotion() {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-
-  /* ------------------------------------------------------- photo fade-in -- */
-  function initPhotos() {
-    Array.prototype.forEach.call(document.querySelectorAll('.photo img'), function (img) {
-      var done = function () { img.classList.add('is-loaded'); };
-      if (img.complete) { done(); return; }
-      img.addEventListener('load', done, { once: true });
-      img.addEventListener('error', function () {
-        done();   // never leave an invisible frame behind
-        console.error('photo failed to load:', img.currentSrc || img.src);
-      }, { once: true });
-    });
   }
 
   /* ---------------------------------------------- folio reading progress -- */
@@ -78,13 +65,6 @@
     update();
   }
 
-
-  /* -------------------------------------------------------------- loader --
-     One pulsing dot, then the cover fades and the hero copy rises in sequence.
-     The hero background is drawn in code (hero-bg.js), so nothing has to load. */
-  function initLoader() {
-    document.documentElement.classList.add('is-loaded');
-  }
 
   /* ---------------------------------------------------------- phone menu -- */
   function initMenu() {
@@ -118,11 +98,9 @@
   }
 
   try {
-    initLoader();
     initFolio();
     initMenu();
     initFolioProgress();
-    initPhotos();
     initYear();
   } catch (err) {
     // Never block the page: everything above is enhancement over readable markup.

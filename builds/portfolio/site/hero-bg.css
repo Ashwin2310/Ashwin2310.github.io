@@ -10,7 +10,7 @@
     radial-gradient(55% 60% at 88% 30%, rgb(30 107 78 / 0.55), transparent 70%),
     radial-gradient(45% 55% at 8% 12%, rgb(143 214 176 / 0.22), transparent 70%),
     radial-gradient(60% 50% at 30% 95%, rgb(16 74 52 / 0.6), transparent 70%),
-    #08110D;
+    var(--dark-deep);
 }
 .hero__bg canvas {
   position: absolute; inset: 0; width: 100%; height: 100%; display: block;
@@ -20,9 +20,9 @@
 .hero__bg::after {
   content: ""; position: absolute; inset: 0;
   background:
-    radial-gradient(60% 70% at 12% 78%, rgb(8 17 13 / 0.6), rgb(8 17 13 / 0.25) 60%, transparent 100%),
+    radial-gradient(60% 70% at 12% 78%, rgb(10 21 16 / 0.6), rgb(10 21 16 / 0.25) 60%, transparent 100%),
     var(--hero-photo-ground, none),
-    linear-gradient(to bottom, rgb(8 17 13 / 0.45) 0%, transparent 18%, transparent 68%, rgb(15 31 24 / 0.8) 88%, var(--dark-canvas) 100%);
+    linear-gradient(to bottom, rgb(10 21 16 / 0.45) 0%, transparent 18%, transparent 68%, rgb(15 31 24 / 0.8) 88%, var(--dark-canvas) 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -31,8 +31,8 @@
 
 /* Where the photo sits: right side on wide screens, the top on phones. */
 @media (min-width: 900px) {
-  .hero__bg { --hero-photo-ground: linear-gradient(to right, transparent 34%, rgb(12 24 19 / 0.7) 50%, #0C1813 64%); }
+  .hero__bg { --hero-photo-ground: linear-gradient(to right, transparent 34%, rgb(10 21 16 / 0.7) 50%, var(--dark-deep) 64%); }
 }
 @media (max-width: 899px) {
-  .hero__bg { --hero-photo-ground: linear-gradient(to bottom, #0C1813 0%, #0C1813 38%, rgb(12 24 19 / 0.6) 54%, transparent 70%); }
+  .hero__bg { --hero-photo-ground: linear-gradient(to bottom, var(--dark-deep) 0%, var(--dark-deep) 38%, rgb(10 21 16 / 0.6) 54%, transparent 70%); }
 }
